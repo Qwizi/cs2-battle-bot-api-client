@@ -1,9 +1,14 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
+
+if TYPE_CHECKING:
+    from ..models.discord_user import DiscordUser
+    from ..models.steam_user import SteamUser
+
 
 T = TypeVar("T", bound="Player")
 
@@ -13,39 +18,39 @@ class Player:
     """
     Attributes:
         id (str):
+        discord_user (DiscordUser):
+        steam_user (SteamUser):
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
-        discord_user (str):
-        steam_user (str):
     """
 
     id: str
+    discord_user: "DiscordUser"
+    steam_user: "SteamUser"
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    discord_user: str
-    steam_user: str
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         id = self.id
 
+        discord_user = self.discord_user.to_dict()
+
+        steam_user = self.steam_user.to_dict()
+
         created_at = self.created_at.isoformat()
 
         updated_at = self.updated_at.isoformat()
-
-        discord_user = self.discord_user
-
-        steam_user = self.steam_user
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
                 "id": id,
-                "created_at": created_at,
-                "updated_at": updated_at,
                 "discord_user": discord_user,
                 "steam_user": steam_user,
+                "created_at": created_at,
+                "updated_at": updated_at,
             }
         )
 
@@ -53,23 +58,26 @@ class Player:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+        from ..models.discord_user import DiscordUser
+        from ..models.steam_user import SteamUser
+
         d = src_dict.copy()
         id = d.pop("id")
+
+        discord_user = DiscordUser.from_dict(d.pop("discord_user"))
+
+        steam_user = SteamUser.from_dict(d.pop("steam_user"))
 
         created_at = isoparse(d.pop("created_at"))
 
         updated_at = isoparse(d.pop("updated_at"))
 
-        discord_user = d.pop("discord_user")
-
-        steam_user = d.pop("steam_user")
-
         player = cls(
             id=id,
-            created_at=created_at,
-            updated_at=updated_at,
             discord_user=discord_user,
             steam_user=steam_user,
+            created_at=created_at,
+            updated_at=updated_at,
         )
 
         player.additional_properties = d

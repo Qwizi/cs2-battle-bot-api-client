@@ -1,11 +1,9 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
-
-from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.player import Player
@@ -20,18 +18,18 @@ class Team:
     Attributes:
         id (str):
         players (List['Player']):
+        leader (Player):
         name (str):
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
-        leader (Union[None, Unset, str]):
     """
 
     id: str
     players: List["Player"]
+    leader: "Player"
     name: str
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    leader: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -42,17 +40,13 @@ class Team:
             players_item = players_item_data.to_dict()
             players.append(players_item)
 
+        leader = self.leader.to_dict()
+
         name = self.name
 
         created_at = self.created_at.isoformat()
 
         updated_at = self.updated_at.isoformat()
-
-        leader: Union[None, Unset, str]
-        if isinstance(self.leader, Unset):
-            leader = UNSET
-        else:
-            leader = self.leader
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -60,13 +54,12 @@ class Team:
             {
                 "id": id,
                 "players": players,
+                "leader": leader,
                 "name": name,
                 "created_at": created_at,
                 "updated_at": updated_at,
             }
         )
-        if leader is not UNSET:
-            field_dict["leader"] = leader
 
         return field_dict
 
@@ -84,28 +77,21 @@ class Team:
 
             players.append(players_item)
 
+        leader = Player.from_dict(d.pop("leader"))
+
         name = d.pop("name")
 
         created_at = isoparse(d.pop("created_at"))
 
         updated_at = isoparse(d.pop("updated_at"))
 
-        def _parse_leader(data: object) -> Union[None, Unset, str]:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            return cast(Union[None, Unset, str], data)
-
-        leader = _parse_leader(d.pop("leader", UNSET))
-
         team = cls(
             id=id,
             players=players,
+            leader=leader,
             name=name,
             created_at=created_at,
             updated_at=updated_at,
-            leader=leader,
         )
 
         team.additional_properties = d

@@ -1,5 +1,5 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,18 +20,18 @@ class PatchedTeam:
     Attributes:
         id (Union[Unset, str]):
         players (Union[Unset, List['Player']]):
+        leader (Union[Unset, Player]):
         name (Union[Unset, str]):
         created_at (Union[Unset, datetime.datetime]):
         updated_at (Union[Unset, datetime.datetime]):
-        leader (Union[None, Unset, str]):
     """
 
     id: Union[Unset, str] = UNSET
     players: Union[Unset, List["Player"]] = UNSET
+    leader: Union[Unset, "Player"] = UNSET
     name: Union[Unset, str] = UNSET
     created_at: Union[Unset, datetime.datetime] = UNSET
     updated_at: Union[Unset, datetime.datetime] = UNSET
-    leader: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -44,6 +44,10 @@ class PatchedTeam:
                 players_item = players_item_data.to_dict()
                 players.append(players_item)
 
+        leader: Union[Unset, Dict[str, Any]] = UNSET
+        if not isinstance(self.leader, Unset):
+            leader = self.leader.to_dict()
+
         name = self.name
 
         created_at: Union[Unset, str] = UNSET
@@ -54,12 +58,6 @@ class PatchedTeam:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
-        leader: Union[None, Unset, str]
-        if isinstance(self.leader, Unset):
-            leader = UNSET
-        else:
-            leader = self.leader
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -67,14 +65,14 @@ class PatchedTeam:
             field_dict["id"] = id
         if players is not UNSET:
             field_dict["players"] = players
+        if leader is not UNSET:
+            field_dict["leader"] = leader
         if name is not UNSET:
             field_dict["name"] = name
         if created_at is not UNSET:
             field_dict["created_at"] = created_at
         if updated_at is not UNSET:
             field_dict["updated_at"] = updated_at
-        if leader is not UNSET:
-            field_dict["leader"] = leader
 
         return field_dict
 
@@ -92,6 +90,13 @@ class PatchedTeam:
 
             players.append(players_item)
 
+        _leader = d.pop("leader", UNSET)
+        leader: Union[Unset, Player]
+        if isinstance(_leader, Unset):
+            leader = UNSET
+        else:
+            leader = Player.from_dict(_leader)
+
         name = d.pop("name", UNSET)
 
         _created_at = d.pop("created_at", UNSET)
@@ -108,22 +113,13 @@ class PatchedTeam:
         else:
             updated_at = isoparse(_updated_at)
 
-        def _parse_leader(data: object) -> Union[None, Unset, str]:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            return cast(Union[None, Unset, str], data)
-
-        leader = _parse_leader(d.pop("leader", UNSET))
-
         patched_team = cls(
             id=id,
             players=players,
+            leader=leader,
             name=name,
             created_at=created_at,
             updated_at=updated_at,
-            leader=leader,
         )
 
         patched_team.additional_properties = d
