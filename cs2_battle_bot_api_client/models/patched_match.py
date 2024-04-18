@@ -28,7 +28,6 @@ class PatchedMatch:
         id (Union[Unset, int]):
         team1 (Union[Unset, Team]):
         team2 (Union[Unset, Team]):
-        winner_team (Union[Unset, Team]):
         maps (Union[Unset, List['Map']]):
         map_bans (Union[Unset, List['MapBan']]):
         map_picks (Union[Unset, List['MatchMapSelected']]):
@@ -52,13 +51,13 @@ class PatchedMatch:
         message_id (Union[None, Unset, str]):
         created_at (Union[Unset, datetime.datetime]):
         updated_at (Union[Unset, datetime.datetime]):
+        winner_team (Union[None, Unset, str]):
         author (Union[None, Unset, str]):
     """
 
     id: Union[Unset, int] = UNSET
     team1: Union[Unset, "Team"] = UNSET
     team2: Union[Unset, "Team"] = UNSET
-    winner_team: Union[Unset, "Team"] = UNSET
     maps: Union[Unset, List["Map"]] = UNSET
     map_bans: Union[Unset, List["MapBan"]] = UNSET
     map_picks: Union[Unset, List["MatchMapSelected"]] = UNSET
@@ -77,6 +76,7 @@ class PatchedMatch:
     message_id: Union[None, Unset, str] = UNSET
     created_at: Union[Unset, datetime.datetime] = UNSET
     updated_at: Union[Unset, datetime.datetime] = UNSET
+    winner_team: Union[None, Unset, str] = UNSET
     author: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -90,10 +90,6 @@ class PatchedMatch:
         team2: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.team2, Unset):
             team2 = self.team2.to_dict()
-
-        winner_team: Union[Unset, Dict[str, Any]] = UNSET
-        if not isinstance(self.winner_team, Unset):
-            winner_team = self.winner_team.to_dict()
 
         maps: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.maps, Unset):
@@ -162,6 +158,12 @@ class PatchedMatch:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
+        winner_team: Union[None, Unset, str]
+        if isinstance(self.winner_team, Unset):
+            winner_team = UNSET
+        else:
+            winner_team = self.winner_team
+
         author: Union[None, Unset, str]
         if isinstance(self.author, Unset):
             author = UNSET
@@ -177,8 +179,6 @@ class PatchedMatch:
             field_dict["team1"] = team1
         if team2 is not UNSET:
             field_dict["team2"] = team2
-        if winner_team is not UNSET:
-            field_dict["winner_team"] = winner_team
         if maps is not UNSET:
             field_dict["maps"] = maps
         if map_bans is not UNSET:
@@ -215,6 +215,8 @@ class PatchedMatch:
             field_dict["created_at"] = created_at
         if updated_at is not UNSET:
             field_dict["updated_at"] = updated_at
+        if winner_team is not UNSET:
+            field_dict["winner_team"] = winner_team
         if author is not UNSET:
             field_dict["author"] = author
 
@@ -245,13 +247,6 @@ class PatchedMatch:
             team2 = UNSET
         else:
             team2 = Team.from_dict(_team2)
-
-        _winner_team = d.pop("winner_team", UNSET)
-        winner_team: Union[Unset, Team]
-        if isinstance(_winner_team, Unset):
-            winner_team = UNSET
-        else:
-            winner_team = Team.from_dict(_winner_team)
 
         maps = []
         _maps = d.pop("maps", UNSET)
@@ -341,6 +336,15 @@ class PatchedMatch:
         else:
             updated_at = isoparse(_updated_at)
 
+        def _parse_winner_team(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        winner_team = _parse_winner_team(d.pop("winner_team", UNSET))
+
         def _parse_author(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -354,7 +358,6 @@ class PatchedMatch:
             id=id,
             team1=team1,
             team2=team2,
-            winner_team=winner_team,
             maps=maps,
             map_bans=map_bans,
             map_picks=map_picks,
@@ -373,6 +376,7 @@ class PatchedMatch:
             message_id=message_id,
             created_at=created_at,
             updated_at=updated_at,
+            winner_team=winner_team,
             author=author,
         )
 

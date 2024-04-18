@@ -28,7 +28,6 @@ class Match:
         id (int):
         team1 (Team):
         team2 (Team):
-        winner_team (Team):
         maps (List['Map']):
         map_bans (List['MapBan']):
         map_picks (List['MatchMapSelected']):
@@ -52,13 +51,13 @@ class Match:
         cvars (Union[Unset, Any]):
         players_per_team (Union[Unset, int]):
         message_id (Union[None, Unset, str]):
+        winner_team (Union[None, Unset, str]):
         author (Union[None, Unset, str]):
     """
 
     id: int
     team1: "Team"
     team2: "Team"
-    winner_team: "Team"
     maps: List["Map"]
     map_bans: List["MapBan"]
     map_picks: List["MatchMapSelected"]
@@ -77,6 +76,7 @@ class Match:
     cvars: Union[Unset, Any] = UNSET
     players_per_team: Union[Unset, int] = UNSET
     message_id: Union[None, Unset, str] = UNSET
+    winner_team: Union[None, Unset, str] = UNSET
     author: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -86,8 +86,6 @@ class Match:
         team1 = self.team1.to_dict()
 
         team2 = self.team2.to_dict()
-
-        winner_team = self.winner_team.to_dict()
 
         maps = []
         for maps_item_data in self.maps:
@@ -142,6 +140,12 @@ class Match:
         else:
             message_id = self.message_id
 
+        winner_team: Union[None, Unset, str]
+        if isinstance(self.winner_team, Unset):
+            winner_team = UNSET
+        else:
+            winner_team = self.winner_team
+
         author: Union[None, Unset, str]
         if isinstance(self.author, Unset):
             author = UNSET
@@ -155,7 +159,6 @@ class Match:
                 "id": id,
                 "team1": team1,
                 "team2": team2,
-                "winner_team": winner_team,
                 "maps": maps,
                 "map_bans": map_bans,
                 "map_picks": map_picks,
@@ -185,6 +188,8 @@ class Match:
             field_dict["players_per_team"] = players_per_team
         if message_id is not UNSET:
             field_dict["message_id"] = message_id
+        if winner_team is not UNSET:
+            field_dict["winner_team"] = winner_team
         if author is not UNSET:
             field_dict["author"] = author
 
@@ -205,8 +210,6 @@ class Match:
         team1 = Team.from_dict(d.pop("team1"))
 
         team2 = Team.from_dict(d.pop("team2"))
-
-        winner_team = Team.from_dict(d.pop("winner_team"))
 
         maps = []
         _maps = d.pop("maps")
@@ -276,6 +279,15 @@ class Match:
 
         message_id = _parse_message_id(d.pop("message_id", UNSET))
 
+        def _parse_winner_team(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        winner_team = _parse_winner_team(d.pop("winner_team", UNSET))
+
         def _parse_author(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -289,7 +301,6 @@ class Match:
             id=id,
             team1=team1,
             team2=team2,
-            winner_team=winner_team,
             maps=maps,
             map_bans=map_bans,
             map_picks=map_picks,
@@ -308,6 +319,7 @@ class Match:
             cvars=cvars,
             players_per_team=players_per_team,
             message_id=message_id,
+            winner_team=winner_team,
             author=author,
         )
 
