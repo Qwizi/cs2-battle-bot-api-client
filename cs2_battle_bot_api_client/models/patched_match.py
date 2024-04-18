@@ -29,11 +29,12 @@ class PatchedMatch:
         team1 (Union[Unset, Team]):
         team2 (Union[Unset, Team]):
         maps (Union[Unset, List['Map']]):
+        winner_team (Union['Team', None, Unset]):
         map_bans (Union[Unset, List['MapBan']]):
         map_picks (Union[Unset, List['MatchMapSelected']]):
         connect_command (Union[Unset, str]):
         load_match_command (Union[Unset, str]):
-        server (Union[Unset, Server]):
+        server (Union['Server', None, Unset]):
         guild (Union[Unset, Guild]):
         status (Union[Unset, StatusEnum]): * `CREATED` - Created
             * `STARTED` - Started
@@ -51,7 +52,6 @@ class PatchedMatch:
         message_id (Union[None, Unset, str]):
         created_at (Union[Unset, datetime.datetime]):
         updated_at (Union[Unset, datetime.datetime]):
-        winner_team (Union[None, Unset, str]):
         author (Union[None, Unset, str]):
     """
 
@@ -59,11 +59,12 @@ class PatchedMatch:
     team1: Union[Unset, "Team"] = UNSET
     team2: Union[Unset, "Team"] = UNSET
     maps: Union[Unset, List["Map"]] = UNSET
+    winner_team: Union["Team", None, Unset] = UNSET
     map_bans: Union[Unset, List["MapBan"]] = UNSET
     map_picks: Union[Unset, List["MatchMapSelected"]] = UNSET
     connect_command: Union[Unset, str] = UNSET
     load_match_command: Union[Unset, str] = UNSET
-    server: Union[Unset, "Server"] = UNSET
+    server: Union["Server", None, Unset] = UNSET
     guild: Union[Unset, "Guild"] = UNSET
     status: Union[Unset, StatusEnum] = UNSET
     type: Union[Unset, TypeEnum] = UNSET
@@ -76,11 +77,13 @@ class PatchedMatch:
     message_id: Union[None, Unset, str] = UNSET
     created_at: Union[Unset, datetime.datetime] = UNSET
     updated_at: Union[Unset, datetime.datetime] = UNSET
-    winner_team: Union[None, Unset, str] = UNSET
     author: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        from ..models.server import Server
+        from ..models.team import Team
+
         id = self.id
 
         team1: Union[Unset, Dict[str, Any]] = UNSET
@@ -97,6 +100,14 @@ class PatchedMatch:
             for maps_item_data in self.maps:
                 maps_item = maps_item_data.to_dict()
                 maps.append(maps_item)
+
+        winner_team: Union[Dict[str, Any], None, Unset]
+        if isinstance(self.winner_team, Unset):
+            winner_team = UNSET
+        elif isinstance(self.winner_team, Team):
+            winner_team = self.winner_team.to_dict()
+        else:
+            winner_team = self.winner_team
 
         map_bans: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.map_bans, Unset):
@@ -116,9 +127,13 @@ class PatchedMatch:
 
         load_match_command = self.load_match_command
 
-        server: Union[Unset, Dict[str, Any]] = UNSET
-        if not isinstance(self.server, Unset):
+        server: Union[Dict[str, Any], None, Unset]
+        if isinstance(self.server, Unset):
+            server = UNSET
+        elif isinstance(self.server, Server):
             server = self.server.to_dict()
+        else:
+            server = self.server
 
         guild: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.guild, Unset):
@@ -158,12 +173,6 @@ class PatchedMatch:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
-        winner_team: Union[None, Unset, str]
-        if isinstance(self.winner_team, Unset):
-            winner_team = UNSET
-        else:
-            winner_team = self.winner_team
-
         author: Union[None, Unset, str]
         if isinstance(self.author, Unset):
             author = UNSET
@@ -181,6 +190,8 @@ class PatchedMatch:
             field_dict["team2"] = team2
         if maps is not UNSET:
             field_dict["maps"] = maps
+        if winner_team is not UNSET:
+            field_dict["winner_team"] = winner_team
         if map_bans is not UNSET:
             field_dict["map_bans"] = map_bans
         if map_picks is not UNSET:
@@ -215,8 +226,6 @@ class PatchedMatch:
             field_dict["created_at"] = created_at
         if updated_at is not UNSET:
             field_dict["updated_at"] = updated_at
-        if winner_team is not UNSET:
-            field_dict["winner_team"] = winner_team
         if author is not UNSET:
             field_dict["author"] = author
 
@@ -255,6 +264,23 @@ class PatchedMatch:
 
             maps.append(maps_item)
 
+        def _parse_winner_team(data: object) -> Union["Team", None, Unset]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                winner_team_type_1 = Team.from_dict(data)
+
+                return winner_team_type_1
+            except:  # noqa: E722
+                pass
+            return cast(Union["Team", None, Unset], data)
+
+        winner_team = _parse_winner_team(d.pop("winner_team", UNSET))
+
         map_bans = []
         _map_bans = d.pop("map_bans", UNSET)
         for map_bans_item_data in _map_bans or []:
@@ -273,12 +299,22 @@ class PatchedMatch:
 
         load_match_command = d.pop("load_match_command", UNSET)
 
-        _server = d.pop("server", UNSET)
-        server: Union[Unset, Server]
-        if isinstance(_server, Unset):
-            server = UNSET
-        else:
-            server = Server.from_dict(_server)
+        def _parse_server(data: object) -> Union["Server", None, Unset]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                server_type_1 = Server.from_dict(data)
+
+                return server_type_1
+            except:  # noqa: E722
+                pass
+            return cast(Union["Server", None, Unset], data)
+
+        server = _parse_server(d.pop("server", UNSET))
 
         _guild = d.pop("guild", UNSET)
         guild: Union[Unset, Guild]
@@ -336,15 +372,6 @@ class PatchedMatch:
         else:
             updated_at = isoparse(_updated_at)
 
-        def _parse_winner_team(data: object) -> Union[None, Unset, str]:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            return cast(Union[None, Unset, str], data)
-
-        winner_team = _parse_winner_team(d.pop("winner_team", UNSET))
-
         def _parse_author(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -359,6 +386,7 @@ class PatchedMatch:
             team1=team1,
             team2=team2,
             maps=maps,
+            winner_team=winner_team,
             map_bans=map_bans,
             map_picks=map_picks,
             connect_command=connect_command,
@@ -376,7 +404,6 @@ class PatchedMatch:
             message_id=message_id,
             created_at=created_at,
             updated_at=updated_at,
-            winner_team=winner_team,
             author=author,
         )
 
