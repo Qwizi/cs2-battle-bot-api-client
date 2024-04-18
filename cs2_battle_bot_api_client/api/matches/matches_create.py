@@ -7,7 +7,6 @@ from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.create_match import CreateMatch
 from ...models.match import Match
-from ...models.matches_create_response_400 import MatchesCreateResponse400
 from ...types import Response
 
 
@@ -31,26 +30,18 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Match, MatchesCreateResponse400]]:
+def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Match]:
     if response.status_code == HTTPStatus.OK:
         response_200 = Match.from_dict(response.json())
 
         return response_200
-    if response.status_code == HTTPStatus.BAD_REQUEST:
-        response_400 = MatchesCreateResponse400.from_dict(response.json())
-
-        return response_400
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Match, MatchesCreateResponse400]]:
+def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Match]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -63,7 +54,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: CreateMatch,
-) -> Response[Union[Match, MatchesCreateResponse400]]:
+) -> Response[Match]:
     """
     Args:
         body (CreateMatch):
@@ -73,7 +64,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Match, MatchesCreateResponse400]]
+        Response[Match]
     """
 
     kwargs = _get_kwargs(
@@ -91,7 +82,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: CreateMatch,
-) -> Optional[Union[Match, MatchesCreateResponse400]]:
+) -> Optional[Match]:
     """
     Args:
         body (CreateMatch):
@@ -101,7 +92,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Match, MatchesCreateResponse400]
+        Match
     """
 
     return sync_detailed(
@@ -114,7 +105,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: CreateMatch,
-) -> Response[Union[Match, MatchesCreateResponse400]]:
+) -> Response[Match]:
     """
     Args:
         body (CreateMatch):
@@ -124,7 +115,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Match, MatchesCreateResponse400]]
+        Response[Match]
     """
 
     kwargs = _get_kwargs(
@@ -140,7 +131,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: CreateMatch,
-) -> Optional[Union[Match, MatchesCreateResponse400]]:
+) -> Optional[Match]:
     """
     Args:
         body (CreateMatch):
@@ -150,7 +141,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Match, MatchesCreateResponse400]
+        Match
     """
 
     return (

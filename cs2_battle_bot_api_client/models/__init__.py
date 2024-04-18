@@ -21,8 +21,6 @@ from .match_pick_map import MatchPickMap
 from .match_pick_map_result import MatchPickMapResult
 from .match_player_join import MatchPlayerJoin
 from .match_type_enum import MatchTypeEnum
-from .matches_create_response_400 import MatchesCreateResponse400
-from .nested import Nested
 from .paginated_discord_user_list import PaginatedDiscordUserList
 from .paginated_guild_list import PaginatedGuildList
 from .paginated_map_list import PaginatedMapList
@@ -65,13 +63,11 @@ __all__ = (
     "MatchConfigCvars",
     "MatchConfigTeam1",
     "MatchConfigTeam2",
-    "MatchesCreateResponse400",
     "MatchMapSelected",
     "MatchPickMap",
     "MatchPickMapResult",
     "MatchPlayerJoin",
     "MatchTypeEnum",
-    "Nested",
     "PaginatedDiscordUserList",
     "PaginatedGuildList",
     "PaginatedMapList",
