@@ -13,11 +13,7 @@ from ...types import Response
 def _get_kwargs(
     id: int,
     *,
-    body: Union[
-        PatchedMatch,
-        PatchedMatch,
-        PatchedMatch,
-    ],
+    body: PatchedMatch,
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
@@ -26,21 +22,10 @@ def _get_kwargs(
         "url": f"/api/matches/{id}/",
     }
 
-    if isinstance(body, PatchedMatch):
-        _json_body = body.to_dict()
+    _body = body.to_dict()
 
-        _kwargs["json"] = _json_body
-        headers["Content-Type"] = "application/json"
-    if isinstance(body, PatchedMatch):
-        _data_body = body.to_dict()
-
-        _kwargs["data"] = _data_body
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-    if isinstance(body, PatchedMatch):
-        _files_body = body.to_multipart()
-
-        _kwargs["files"] = _files_body
-        headers["Content-Type"] = "multipart/form-data"
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
@@ -70,17 +55,11 @@ def sync_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        PatchedMatch,
-        PatchedMatch,
-        PatchedMatch,
-    ],
+    body: PatchedMatch,
 ) -> Response[Match]:
     """
     Args:
         id (int):
-        body (PatchedMatch):
-        body (PatchedMatch):
         body (PatchedMatch):
 
     Raises:
@@ -107,17 +86,11 @@ def sync(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        PatchedMatch,
-        PatchedMatch,
-        PatchedMatch,
-    ],
+    body: PatchedMatch,
 ) -> Optional[Match]:
     """
     Args:
         id (int):
-        body (PatchedMatch):
-        body (PatchedMatch):
         body (PatchedMatch):
 
     Raises:
@@ -139,17 +112,11 @@ async def asyncio_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        PatchedMatch,
-        PatchedMatch,
-        PatchedMatch,
-    ],
+    body: PatchedMatch,
 ) -> Response[Match]:
     """
     Args:
         id (int):
-        body (PatchedMatch):
-        body (PatchedMatch):
         body (PatchedMatch):
 
     Raises:
@@ -174,17 +141,11 @@ async def asyncio(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        PatchedMatch,
-        PatchedMatch,
-        PatchedMatch,
-    ],
+    body: PatchedMatch,
 ) -> Optional[Match]:
     """
     Args:
         id (int):
-        body (PatchedMatch):
-        body (PatchedMatch):
         body (PatchedMatch):
 
     Raises:

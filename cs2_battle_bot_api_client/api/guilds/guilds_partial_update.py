@@ -11,36 +11,21 @@ from ...types import Response
 
 
 def _get_kwargs(
-    id: str,
+    guild_id: str,
     *,
-    body: Union[
-        PatchedGuild,
-        PatchedGuild,
-        PatchedGuild,
-    ],
+    body: PatchedGuild,
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
     _kwargs: Dict[str, Any] = {
         "method": "patch",
-        "url": f"/api/guilds/{id}/",
+        "url": f"/api/guilds/{guild_id}/",
     }
 
-    if isinstance(body, PatchedGuild):
-        _json_body = body.to_dict()
+    _body = body.to_dict()
 
-        _kwargs["json"] = _json_body
-        headers["Content-Type"] = "application/json"
-    if isinstance(body, PatchedGuild):
-        _data_body = body.to_dict()
-
-        _kwargs["data"] = _data_body
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-    if isinstance(body, PatchedGuild):
-        _files_body = body.to_multipart()
-
-        _kwargs["files"] = _files_body
-        headers["Content-Type"] = "multipart/form-data"
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
@@ -67,20 +52,14 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 
 
 def sync_detailed(
-    id: str,
+    guild_id: str,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        PatchedGuild,
-        PatchedGuild,
-        PatchedGuild,
-    ],
+    body: PatchedGuild,
 ) -> Response[Guild]:
     """
     Args:
-        id (str):
-        body (PatchedGuild):
-        body (PatchedGuild):
+        guild_id (str):
         body (PatchedGuild):
 
     Raises:
@@ -92,7 +71,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
+        guild_id=guild_id,
         body=body,
     )
 
@@ -104,20 +83,14 @@ def sync_detailed(
 
 
 def sync(
-    id: str,
+    guild_id: str,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        PatchedGuild,
-        PatchedGuild,
-        PatchedGuild,
-    ],
+    body: PatchedGuild,
 ) -> Optional[Guild]:
     """
     Args:
-        id (str):
-        body (PatchedGuild):
-        body (PatchedGuild):
+        guild_id (str):
         body (PatchedGuild):
 
     Raises:
@@ -129,27 +102,21 @@ def sync(
     """
 
     return sync_detailed(
-        id=id,
+        guild_id=guild_id,
         client=client,
         body=body,
     ).parsed
 
 
 async def asyncio_detailed(
-    id: str,
+    guild_id: str,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        PatchedGuild,
-        PatchedGuild,
-        PatchedGuild,
-    ],
+    body: PatchedGuild,
 ) -> Response[Guild]:
     """
     Args:
-        id (str):
-        body (PatchedGuild):
-        body (PatchedGuild):
+        guild_id (str):
         body (PatchedGuild):
 
     Raises:
@@ -161,7 +128,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
+        guild_id=guild_id,
         body=body,
     )
 
@@ -171,20 +138,14 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: str,
+    guild_id: str,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        PatchedGuild,
-        PatchedGuild,
-        PatchedGuild,
-    ],
+    body: PatchedGuild,
 ) -> Optional[Guild]:
     """
     Args:
-        id (str):
-        body (PatchedGuild):
-        body (PatchedGuild):
+        guild_id (str):
         body (PatchedGuild):
 
     Raises:
@@ -197,7 +158,7 @@ async def asyncio(
 
     return (
         await asyncio_detailed(
-            id=id,
+            guild_id=guild_id,
             client=client,
             body=body,
         )

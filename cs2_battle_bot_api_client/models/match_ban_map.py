@@ -3,8 +3,6 @@ from typing import Any, Dict, List, Type, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import Unset
-
 T = TypeVar("T", bound="MatchBanMap")
 
 
@@ -27,28 +25,6 @@ class MatchBanMap:
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "interaction_user_id": interaction_user_id,
-                "map_tag": map_tag,
-            }
-        )
-
-        return field_dict
-
-    def to_multipart(self) -> Dict[str, Any]:
-        interaction_user_id = (
-            self.interaction_user_id
-            if isinstance(self.interaction_user_id, Unset)
-            else (None, str(self.interaction_user_id).encode(), "text/plain")
-        )
-
-        map_tag = self.map_tag if isinstance(self.map_tag, Unset) else (None, str(self.map_tag).encode(), "text/plain")
-
-        field_dict: Dict[str, Any] = {}
-        field_dict.update(
-            {key: (None, str(value).encode(), "text/plain") for key, value in self.additional_properties.items()}
-        )
         field_dict.update(
             {
                 "interaction_user_id": interaction_user_id,

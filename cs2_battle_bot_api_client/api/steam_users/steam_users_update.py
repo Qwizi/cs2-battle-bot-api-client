@@ -12,11 +12,7 @@ from ...types import Response
 def _get_kwargs(
     id: str,
     *,
-    body: Union[
-        SteamUser,
-        SteamUser,
-        SteamUser,
-    ],
+    body: SteamUser,
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
@@ -25,21 +21,10 @@ def _get_kwargs(
         "url": f"/api/steam-users/{id}/",
     }
 
-    if isinstance(body, SteamUser):
-        _json_body = body.to_dict()
+    _body = body.to_dict()
 
-        _kwargs["json"] = _json_body
-        headers["Content-Type"] = "application/json"
-    if isinstance(body, SteamUser):
-        _data_body = body.to_dict()
-
-        _kwargs["data"] = _data_body
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-    if isinstance(body, SteamUser):
-        _files_body = body.to_multipart()
-
-        _kwargs["files"] = _files_body
-        headers["Content-Type"] = "multipart/form-data"
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
@@ -69,17 +54,11 @@ def sync_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        SteamUser,
-        SteamUser,
-        SteamUser,
-    ],
+    body: SteamUser,
 ) -> Response[SteamUser]:
     """
     Args:
         id (str):
-        body (SteamUser):
-        body (SteamUser):
         body (SteamUser):
 
     Raises:
@@ -106,17 +85,11 @@ def sync(
     id: str,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        SteamUser,
-        SteamUser,
-        SteamUser,
-    ],
+    body: SteamUser,
 ) -> Optional[SteamUser]:
     """
     Args:
         id (str):
-        body (SteamUser):
-        body (SteamUser):
         body (SteamUser):
 
     Raises:
@@ -138,17 +111,11 @@ async def asyncio_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        SteamUser,
-        SteamUser,
-        SteamUser,
-    ],
+    body: SteamUser,
 ) -> Response[SteamUser]:
     """
     Args:
         id (str):
-        body (SteamUser):
-        body (SteamUser):
         body (SteamUser):
 
     Raises:
@@ -173,17 +140,11 @@ async def asyncio(
     id: str,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        SteamUser,
-        SteamUser,
-        SteamUser,
-    ],
+    body: SteamUser,
 ) -> Optional[SteamUser]:
     """
     Args:
         id (str):
-        body (SteamUser):
-        body (SteamUser):
         body (SteamUser):
 
     Raises:

@@ -1,10 +1,7 @@
-import json
 from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import Unset
 
 if TYPE_CHECKING:
     from ..models.create_guild_member import CreateGuildMember
@@ -47,45 +44,6 @@ class CreateGuild:
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "name": name,
-                "guild_id": guild_id,
-                "owner_id": owner_id,
-                "owner_username": owner_username,
-                "members": members,
-            }
-        )
-
-        return field_dict
-
-    def to_multipart(self) -> Dict[str, Any]:
-        name = self.name if isinstance(self.name, Unset) else (None, str(self.name).encode(), "text/plain")
-
-        guild_id = (
-            self.guild_id if isinstance(self.guild_id, Unset) else (None, str(self.guild_id).encode(), "text/plain")
-        )
-
-        owner_id = (
-            self.owner_id if isinstance(self.owner_id, Unset) else (None, str(self.owner_id).encode(), "text/plain")
-        )
-
-        owner_username = (
-            self.owner_username
-            if isinstance(self.owner_username, Unset)
-            else (None, str(self.owner_username).encode(), "text/plain")
-        )
-
-        _temp_members = []
-        for members_item_data in self.members:
-            members_item = members_item_data.to_dict()
-            _temp_members.append(members_item)
-        members = (None, json.dumps(_temp_members).encode(), "application/json")
-
-        field_dict: Dict[str, Any] = {}
-        field_dict.update(
-            {key: (None, str(value).encode(), "text/plain") for key, value in self.additional_properties.items()}
-        )
         field_dict.update(
             {
                 "name": name,

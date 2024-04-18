@@ -1,5 +1,4 @@
-import json
-from typing import TYPE_CHECKING, Any, Dict, List, Tuple, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -69,68 +68,6 @@ class CreateMatch:
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "discord_users_ids": discord_users_ids,
-                "author_id": author_id,
-                "guild_id": guild_id,
-            }
-        )
-        if server_id is not UNSET:
-            field_dict["server_id"] = server_id
-        if match_type is not UNSET:
-            field_dict["match_type"] = match_type
-        if clinch_series is not UNSET:
-            field_dict["clinch_series"] = clinch_series
-        if map_sides is not UNSET:
-            field_dict["map_sides"] = map_sides
-        if cvars is not UNSET:
-            field_dict["cvars"] = cvars
-
-        return field_dict
-
-    def to_multipart(self) -> Dict[str, Any]:
-        _temp_discord_users_ids = self.discord_users_ids
-        discord_users_ids = (None, json.dumps(_temp_discord_users_ids).encode(), "application/json")
-
-        author_id = (
-            self.author_id if isinstance(self.author_id, Unset) else (None, str(self.author_id).encode(), "text/plain")
-        )
-
-        guild_id = (
-            self.guild_id if isinstance(self.guild_id, Unset) else (None, str(self.guild_id).encode(), "text/plain")
-        )
-
-        server_id = (
-            self.server_id if isinstance(self.server_id, Unset) else (None, str(self.server_id).encode(), "text/plain")
-        )
-
-        match_type: Union[Unset, Tuple[None, bytes, str]] = UNSET
-        if not isinstance(self.match_type, Unset):
-            match_type = (None, str(self.match_type.value).encode(), "text/plain")
-
-        clinch_series = (
-            self.clinch_series
-            if isinstance(self.clinch_series, Unset)
-            else (None, str(self.clinch_series).encode(), "text/plain")
-        )
-
-        map_sides: Union[Unset, Tuple[None, bytes, str]] = UNSET
-        if not isinstance(self.map_sides, Unset):
-            _temp_map_sides = []
-            for map_sides_item_data in self.map_sides:
-                map_sides_item = map_sides_item_data.value
-                _temp_map_sides.append(map_sides_item)
-            map_sides = (None, json.dumps(_temp_map_sides).encode(), "application/json")
-
-        cvars: Union[Unset, Tuple[None, bytes, str]] = UNSET
-        if not isinstance(self.cvars, Unset):
-            cvars = (None, json.dumps(self.cvars.to_dict()).encode(), "application/json")
-
-        field_dict: Dict[str, Any] = {}
-        field_dict.update(
-            {key: (None, str(value).encode(), "text/plain") for key, value in self.additional_properties.items()}
-        )
         field_dict.update(
             {
                 "discord_users_ids": discord_users_ids,

@@ -7,16 +7,13 @@ from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.create_match import CreateMatch
 from ...models.match import Match
+from ...models.matches_create_response_400 import MatchesCreateResponse400
 from ...types import Response
 
 
 def _get_kwargs(
     *,
-    body: Union[
-        CreateMatch,
-        CreateMatch,
-        CreateMatch,
-    ],
+    body: CreateMatch,
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
@@ -25,38 +22,35 @@ def _get_kwargs(
         "url": "/api/matches/",
     }
 
-    if isinstance(body, CreateMatch):
-        _json_body = body.to_dict()
+    _body = body.to_dict()
 
-        _kwargs["json"] = _json_body
-        headers["Content-Type"] = "application/json"
-    if isinstance(body, CreateMatch):
-        _data_body = body.to_dict()
-
-        _kwargs["data"] = _data_body
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-    if isinstance(body, CreateMatch):
-        _files_body = body.to_multipart()
-
-        _kwargs["files"] = _files_body
-        headers["Content-Type"] = "multipart/form-data"
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Match]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[Match, MatchesCreateResponse400]]:
     if response.status_code == HTTPStatus.OK:
         response_200 = Match.from_dict(response.json())
 
         return response_200
+    if response.status_code == HTTPStatus.BAD_REQUEST:
+        response_400 = MatchesCreateResponse400.from_dict(response.json())
+
+        return response_400
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Match]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[Match, MatchesCreateResponse400]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -68,16 +62,10 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    body: Union[
-        CreateMatch,
-        CreateMatch,
-        CreateMatch,
-    ],
-) -> Response[Match]:
+    body: CreateMatch,
+) -> Response[Union[Match, MatchesCreateResponse400]]:
     """
     Args:
-        body (CreateMatch):
-        body (CreateMatch):
         body (CreateMatch):
 
     Raises:
@@ -85,7 +73,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Match]
+        Response[Union[Match, MatchesCreateResponse400]]
     """
 
     kwargs = _get_kwargs(
@@ -102,16 +90,10 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    body: Union[
-        CreateMatch,
-        CreateMatch,
-        CreateMatch,
-    ],
-) -> Optional[Match]:
+    body: CreateMatch,
+) -> Optional[Union[Match, MatchesCreateResponse400]]:
     """
     Args:
-        body (CreateMatch):
-        body (CreateMatch):
         body (CreateMatch):
 
     Raises:
@@ -119,7 +101,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Match
+        Union[Match, MatchesCreateResponse400]
     """
 
     return sync_detailed(
@@ -131,16 +113,10 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    body: Union[
-        CreateMatch,
-        CreateMatch,
-        CreateMatch,
-    ],
-) -> Response[Match]:
+    body: CreateMatch,
+) -> Response[Union[Match, MatchesCreateResponse400]]:
     """
     Args:
-        body (CreateMatch):
-        body (CreateMatch):
         body (CreateMatch):
 
     Raises:
@@ -148,7 +124,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Match]
+        Response[Union[Match, MatchesCreateResponse400]]
     """
 
     kwargs = _get_kwargs(
@@ -163,16 +139,10 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    body: Union[
-        CreateMatch,
-        CreateMatch,
-        CreateMatch,
-    ],
-) -> Optional[Match]:
+    body: CreateMatch,
+) -> Optional[Union[Match, MatchesCreateResponse400]]:
     """
     Args:
-        body (CreateMatch):
-        body (CreateMatch):
         body (CreateMatch):
 
     Raises:
@@ -180,7 +150,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Match
+        Union[Match, MatchesCreateResponse400]
     """
 
     return (

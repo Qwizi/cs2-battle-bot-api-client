@@ -1,5 +1,4 @@
 import datetime
-import json
 from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
@@ -57,45 +56,6 @@ class Team:
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "id": id,
-                "players": players,
-                "name": name,
-                "created_at": created_at,
-                "updated_at": updated_at,
-            }
-        )
-        if leader is not UNSET:
-            field_dict["leader"] = leader
-
-        return field_dict
-
-    def to_multipart(self) -> Dict[str, Any]:
-        id = self.id if isinstance(self.id, Unset) else (None, str(self.id).encode(), "text/plain")
-
-        _temp_players = []
-        for players_item_data in self.players:
-            players_item = players_item_data.to_dict()
-            _temp_players.append(players_item)
-        players = (None, json.dumps(_temp_players).encode(), "application/json")
-
-        name = self.name if isinstance(self.name, Unset) else (None, str(self.name).encode(), "text/plain")
-
-        created_at = self.created_at.isoformat().encode()
-
-        updated_at = self.updated_at.isoformat().encode()
-
-        leader: Union[None, Unset, str]
-        if isinstance(self.leader, Unset):
-            leader = UNSET
-        else:
-            leader = self.leader
-
-        field_dict: Dict[str, Any] = {}
-        field_dict.update(
-            {key: (None, str(value).encode(), "text/plain") for key, value in self.additional_properties.items()}
-        )
         field_dict.update(
             {
                 "id": id,

@@ -12,11 +12,7 @@ from ...types import Response
 def _get_kwargs(
     id: str,
     *,
-    body: Union[
-        Map,
-        Map,
-        Map,
-    ],
+    body: Map,
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
@@ -25,21 +21,10 @@ def _get_kwargs(
         "url": f"/api/maps/{id}/",
     }
 
-    if isinstance(body, Map):
-        _json_body = body.to_dict()
+    _body = body.to_dict()
 
-        _kwargs["json"] = _json_body
-        headers["Content-Type"] = "application/json"
-    if isinstance(body, Map):
-        _data_body = body.to_dict()
-
-        _kwargs["data"] = _data_body
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-    if isinstance(body, Map):
-        _files_body = body.to_multipart()
-
-        _kwargs["files"] = _files_body
-        headers["Content-Type"] = "multipart/form-data"
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
@@ -69,17 +54,11 @@ def sync_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        Map,
-        Map,
-        Map,
-    ],
+    body: Map,
 ) -> Response[Map]:
     """
     Args:
         id (str):
-        body (Map):
-        body (Map):
         body (Map):
 
     Raises:
@@ -106,17 +85,11 @@ def sync(
     id: str,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        Map,
-        Map,
-        Map,
-    ],
+    body: Map,
 ) -> Optional[Map]:
     """
     Args:
         id (str):
-        body (Map):
-        body (Map):
         body (Map):
 
     Raises:
@@ -138,17 +111,11 @@ async def asyncio_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        Map,
-        Map,
-        Map,
-    ],
+    body: Map,
 ) -> Response[Map]:
     """
     Args:
         id (str):
-        body (Map):
-        body (Map):
         body (Map):
 
     Raises:
@@ -173,17 +140,11 @@ async def asyncio(
     id: str,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        Map,
-        Map,
-        Map,
-    ],
+    body: Map,
 ) -> Optional[Map]:
     """
     Args:
         id (str):
-        body (Map):
-        body (Map):
         body (Map):
 
     Raises:

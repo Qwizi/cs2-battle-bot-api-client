@@ -13,11 +13,7 @@ from ...types import Response
 def _get_kwargs(
     id: str,
     *,
-    body: Union[
-        PatchedPlayer,
-        PatchedPlayer,
-        PatchedPlayer,
-    ],
+    body: PatchedPlayer,
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
@@ -26,21 +22,10 @@ def _get_kwargs(
         "url": f"/api/players/{id}/",
     }
 
-    if isinstance(body, PatchedPlayer):
-        _json_body = body.to_dict()
+    _body = body.to_dict()
 
-        _kwargs["json"] = _json_body
-        headers["Content-Type"] = "application/json"
-    if isinstance(body, PatchedPlayer):
-        _data_body = body.to_dict()
-
-        _kwargs["data"] = _data_body
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-    if isinstance(body, PatchedPlayer):
-        _files_body = body.to_multipart()
-
-        _kwargs["files"] = _files_body
-        headers["Content-Type"] = "multipart/form-data"
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
@@ -70,17 +55,11 @@ def sync_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        PatchedPlayer,
-        PatchedPlayer,
-        PatchedPlayer,
-    ],
+    body: PatchedPlayer,
 ) -> Response[Player]:
     """
     Args:
         id (str):
-        body (PatchedPlayer):
-        body (PatchedPlayer):
         body (PatchedPlayer):
 
     Raises:
@@ -107,17 +86,11 @@ def sync(
     id: str,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        PatchedPlayer,
-        PatchedPlayer,
-        PatchedPlayer,
-    ],
+    body: PatchedPlayer,
 ) -> Optional[Player]:
     """
     Args:
         id (str):
-        body (PatchedPlayer):
-        body (PatchedPlayer):
         body (PatchedPlayer):
 
     Raises:
@@ -139,17 +112,11 @@ async def asyncio_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        PatchedPlayer,
-        PatchedPlayer,
-        PatchedPlayer,
-    ],
+    body: PatchedPlayer,
 ) -> Response[Player]:
     """
     Args:
         id (str):
-        body (PatchedPlayer):
-        body (PatchedPlayer):
         body (PatchedPlayer):
 
     Raises:
@@ -174,17 +141,11 @@ async def asyncio(
     id: str,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        PatchedPlayer,
-        PatchedPlayer,
-        PatchedPlayer,
-    ],
+    body: PatchedPlayer,
 ) -> Optional[Player]:
     """
     Args:
         id (str):
-        body (PatchedPlayer):
-        body (PatchedPlayer):
         body (PatchedPlayer):
 
     Raises:

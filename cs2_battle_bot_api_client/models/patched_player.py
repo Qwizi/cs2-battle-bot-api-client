@@ -1,6 +1,5 @@
 import datetime
-import json
-from typing import TYPE_CHECKING, Any, Dict, List, Tuple, Type, TypeVar, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -54,43 +53,6 @@ class PatchedPlayer:
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if id is not UNSET:
-            field_dict["id"] = id
-        if created_at is not UNSET:
-            field_dict["created_at"] = created_at
-        if updated_at is not UNSET:
-            field_dict["updated_at"] = updated_at
-        if discord_user is not UNSET:
-            field_dict["discord_user"] = discord_user
-        if steam_user is not UNSET:
-            field_dict["steam_user"] = steam_user
-
-        return field_dict
-
-    def to_multipart(self) -> Dict[str, Any]:
-        id = self.id if isinstance(self.id, Unset) else (None, str(self.id).encode(), "text/plain")
-
-        created_at: Union[Unset, bytes] = UNSET
-        if not isinstance(self.created_at, Unset):
-            created_at = self.created_at.isoformat().encode()
-
-        updated_at: Union[Unset, bytes] = UNSET
-        if not isinstance(self.updated_at, Unset):
-            updated_at = self.updated_at.isoformat().encode()
-
-        discord_user: Union[Unset, Tuple[None, bytes, str]] = UNSET
-        if not isinstance(self.discord_user, Unset):
-            discord_user = (None, json.dumps(self.discord_user.to_dict()).encode(), "application/json")
-
-        steam_user: Union[Unset, Tuple[None, bytes, str]] = UNSET
-        if not isinstance(self.steam_user, Unset):
-            steam_user = (None, json.dumps(self.steam_user.to_dict()).encode(), "application/json")
-
-        field_dict: Dict[str, Any] = {}
-        field_dict.update(
-            {key: (None, str(value).encode(), "text/plain") for key, value in self.additional_properties.items()}
-        )
         field_dict.update({})
         if id is not UNSET:
             field_dict["id"] = id

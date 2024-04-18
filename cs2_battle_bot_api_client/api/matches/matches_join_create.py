@@ -13,11 +13,7 @@ from ...types import Response
 def _get_kwargs(
     id: int,
     *,
-    body: Union[
-        MatchPlayerJoin,
-        MatchPlayerJoin,
-        MatchPlayerJoin,
-    ],
+    body: MatchPlayerJoin,
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
@@ -26,21 +22,10 @@ def _get_kwargs(
         "url": f"/api/matches/{id}/join/",
     }
 
-    if isinstance(body, MatchPlayerJoin):
-        _json_body = body.to_dict()
+    _body = body.to_dict()
 
-        _kwargs["json"] = _json_body
-        headers["Content-Type"] = "application/json"
-    if isinstance(body, MatchPlayerJoin):
-        _data_body = body.to_dict()
-
-        _kwargs["data"] = _data_body
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-    if isinstance(body, MatchPlayerJoin):
-        _files_body = body.to_multipart()
-
-        _kwargs["files"] = _files_body
-        headers["Content-Type"] = "multipart/form-data"
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
@@ -70,17 +55,11 @@ def sync_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        MatchPlayerJoin,
-        MatchPlayerJoin,
-        MatchPlayerJoin,
-    ],
+    body: MatchPlayerJoin,
 ) -> Response[Match]:
     """
     Args:
         id (int):
-        body (MatchPlayerJoin):
-        body (MatchPlayerJoin):
         body (MatchPlayerJoin):
 
     Raises:
@@ -107,17 +86,11 @@ def sync(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        MatchPlayerJoin,
-        MatchPlayerJoin,
-        MatchPlayerJoin,
-    ],
+    body: MatchPlayerJoin,
 ) -> Optional[Match]:
     """
     Args:
         id (int):
-        body (MatchPlayerJoin):
-        body (MatchPlayerJoin):
         body (MatchPlayerJoin):
 
     Raises:
@@ -139,17 +112,11 @@ async def asyncio_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        MatchPlayerJoin,
-        MatchPlayerJoin,
-        MatchPlayerJoin,
-    ],
+    body: MatchPlayerJoin,
 ) -> Response[Match]:
     """
     Args:
         id (int):
-        body (MatchPlayerJoin):
-        body (MatchPlayerJoin):
         body (MatchPlayerJoin):
 
     Raises:
@@ -174,17 +141,11 @@ async def asyncio(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        MatchPlayerJoin,
-        MatchPlayerJoin,
-        MatchPlayerJoin,
-    ],
+    body: MatchPlayerJoin,
 ) -> Optional[Match]:
     """
     Args:
         id (int):
-        body (MatchPlayerJoin):
-        body (MatchPlayerJoin):
         body (MatchPlayerJoin):
 
     Raises:

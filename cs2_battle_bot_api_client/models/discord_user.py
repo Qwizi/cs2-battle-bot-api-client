@@ -5,8 +5,6 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..types import Unset
-
 T = TypeVar("T", bound="DiscordUser")
 
 
@@ -41,35 +39,6 @@ class DiscordUser:
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "id": id,
-                "user_id": user_id,
-                "username": username,
-                "created_at": created_at,
-                "updated_at": updated_at,
-            }
-        )
-
-        return field_dict
-
-    def to_multipart(self) -> Dict[str, Any]:
-        id = self.id if isinstance(self.id, Unset) else (None, str(self.id).encode(), "text/plain")
-
-        user_id = self.user_id if isinstance(self.user_id, Unset) else (None, str(self.user_id).encode(), "text/plain")
-
-        username = (
-            self.username if isinstance(self.username, Unset) else (None, str(self.username).encode(), "text/plain")
-        )
-
-        created_at = self.created_at.isoformat().encode()
-
-        updated_at = self.updated_at.isoformat().encode()
-
-        field_dict: Dict[str, Any] = {}
-        field_dict.update(
-            {key: (None, str(value).encode(), "text/plain") for key, value in self.additional_properties.items()}
-        )
         field_dict.update(
             {
                 "id": id,

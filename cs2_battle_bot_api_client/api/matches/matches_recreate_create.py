@@ -12,11 +12,7 @@ from ...types import Response
 def _get_kwargs(
     id: int,
     *,
-    body: Union[
-        Match,
-        Match,
-        Match,
-    ],
+    body: Match,
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
@@ -25,21 +21,10 @@ def _get_kwargs(
         "url": f"/api/matches/{id}/recreate/",
     }
 
-    if isinstance(body, Match):
-        _json_body = body.to_dict()
+    _body = body.to_dict()
 
-        _kwargs["json"] = _json_body
-        headers["Content-Type"] = "application/json"
-    if isinstance(body, Match):
-        _data_body = body.to_dict()
-
-        _kwargs["data"] = _data_body
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-    if isinstance(body, Match):
-        _files_body = body.to_multipart()
-
-        _kwargs["files"] = _files_body
-        headers["Content-Type"] = "multipart/form-data"
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
@@ -69,17 +54,11 @@ def sync_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        Match,
-        Match,
-        Match,
-    ],
+    body: Match,
 ) -> Response[Match]:
     """
     Args:
         id (int):
-        body (Match):
-        body (Match):
         body (Match):
 
     Raises:
@@ -106,17 +85,11 @@ def sync(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        Match,
-        Match,
-        Match,
-    ],
+    body: Match,
 ) -> Optional[Match]:
     """
     Args:
         id (int):
-        body (Match):
-        body (Match):
         body (Match):
 
     Raises:
@@ -138,17 +111,11 @@ async def asyncio_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        Match,
-        Match,
-        Match,
-    ],
+    body: Match,
 ) -> Response[Match]:
     """
     Args:
         id (int):
-        body (Match):
-        body (Match):
         body (Match):
 
     Raises:
@@ -173,17 +140,11 @@ async def asyncio(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        Match,
-        Match,
-        Match,
-    ],
+    body: Match,
 ) -> Optional[Match]:
     """
     Args:
         id (int):
-        body (Match):
-        body (Match):
         body (Match):
 
     Raises:

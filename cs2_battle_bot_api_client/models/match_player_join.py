@@ -3,8 +3,6 @@ from typing import Any, Dict, List, Type, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import Unset
-
 T = TypeVar("T", bound="MatchPlayerJoin")
 
 
@@ -23,25 +21,6 @@ class MatchPlayerJoin:
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "discord_user_id": discord_user_id,
-            }
-        )
-
-        return field_dict
-
-    def to_multipart(self) -> Dict[str, Any]:
-        discord_user_id = (
-            self.discord_user_id
-            if isinstance(self.discord_user_id, Unset)
-            else (None, str(self.discord_user_id).encode(), "text/plain")
-        )
-
-        field_dict: Dict[str, Any] = {}
-        field_dict.update(
-            {key: (None, str(value).encode(), "text/plain") for key, value in self.additional_properties.items()}
-        )
         field_dict.update(
             {
                 "discord_user_id": discord_user_id,

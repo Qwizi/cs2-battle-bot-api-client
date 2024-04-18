@@ -59,41 +59,6 @@ class PatchedDiscordUser:
 
         return field_dict
 
-    def to_multipart(self) -> Dict[str, Any]:
-        id = self.id if isinstance(self.id, Unset) else (None, str(self.id).encode(), "text/plain")
-
-        user_id = self.user_id if isinstance(self.user_id, Unset) else (None, str(self.user_id).encode(), "text/plain")
-
-        username = (
-            self.username if isinstance(self.username, Unset) else (None, str(self.username).encode(), "text/plain")
-        )
-
-        created_at: Union[Unset, bytes] = UNSET
-        if not isinstance(self.created_at, Unset):
-            created_at = self.created_at.isoformat().encode()
-
-        updated_at: Union[Unset, bytes] = UNSET
-        if not isinstance(self.updated_at, Unset):
-            updated_at = self.updated_at.isoformat().encode()
-
-        field_dict: Dict[str, Any] = {}
-        field_dict.update(
-            {key: (None, str(value).encode(), "text/plain") for key, value in self.additional_properties.items()}
-        )
-        field_dict.update({})
-        if id is not UNSET:
-            field_dict["id"] = id
-        if user_id is not UNSET:
-            field_dict["user_id"] = user_id
-        if username is not UNSET:
-            field_dict["username"] = username
-        if created_at is not UNSET:
-            field_dict["created_at"] = created_at
-        if updated_at is not UNSET:
-            field_dict["updated_at"] = updated_at
-
-        return field_dict
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()

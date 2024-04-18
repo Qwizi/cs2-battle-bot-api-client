@@ -1,12 +1,9 @@
 import datetime
-import json
 from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
-
-from ..types import Unset
 
 if TYPE_CHECKING:
     from ..models.nested import Nested
@@ -46,33 +43,6 @@ class Player:
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "id": id,
-                "created_at": created_at,
-                "updated_at": updated_at,
-                "discord_user": discord_user,
-                "steam_user": steam_user,
-            }
-        )
-
-        return field_dict
-
-    def to_multipart(self) -> Dict[str, Any]:
-        id = self.id if isinstance(self.id, Unset) else (None, str(self.id).encode(), "text/plain")
-
-        created_at = self.created_at.isoformat().encode()
-
-        updated_at = self.updated_at.isoformat().encode()
-
-        discord_user = (None, json.dumps(self.discord_user.to_dict()).encode(), "application/json")
-
-        steam_user = (None, json.dumps(self.steam_user.to_dict()).encode(), "application/json")
-
-        field_dict: Dict[str, Any] = {}
-        field_dict.update(
-            {key: (None, str(value).encode(), "text/plain") for key, value in self.additional_properties.items()}
-        )
         field_dict.update(
             {
                 "id": id,

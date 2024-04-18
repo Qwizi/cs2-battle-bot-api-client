@@ -1,5 +1,4 @@
 import datetime
-import json
 from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
@@ -74,66 +73,6 @@ class Guild:
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "id": id,
-                "name": name,
-                "guild_id": guild_id,
-                "created_at": created_at,
-                "updated_at": updated_at,
-                "owner": owner,
-                "members": members,
-            }
-        )
-        if lobby_channel is not UNSET:
-            field_dict["lobby_channel"] = lobby_channel
-        if team1_channel is not UNSET:
-            field_dict["team1_channel"] = team1_channel
-        if team2_channel is not UNSET:
-            field_dict["team2_channel"] = team2_channel
-
-        return field_dict
-
-    def to_multipart(self) -> Dict[str, Any]:
-        id = self.id if isinstance(self.id, Unset) else (None, str(self.id).encode(), "text/plain")
-
-        name = self.name if isinstance(self.name, Unset) else (None, str(self.name).encode(), "text/plain")
-
-        guild_id = (
-            self.guild_id if isinstance(self.guild_id, Unset) else (None, str(self.guild_id).encode(), "text/plain")
-        )
-
-        created_at = self.created_at.isoformat().encode()
-
-        updated_at = self.updated_at.isoformat().encode()
-
-        owner = self.owner if isinstance(self.owner, Unset) else (None, str(self.owner).encode(), "text/plain")
-
-        _temp_members = self.members
-        members = (None, json.dumps(_temp_members).encode(), "application/json")
-
-        lobby_channel: Union[None, Unset, str]
-        if isinstance(self.lobby_channel, Unset):
-            lobby_channel = UNSET
-        else:
-            lobby_channel = self.lobby_channel
-
-        team1_channel: Union[None, Unset, str]
-        if isinstance(self.team1_channel, Unset):
-            team1_channel = UNSET
-        else:
-            team1_channel = self.team1_channel
-
-        team2_channel: Union[None, Unset, str]
-        if isinstance(self.team2_channel, Unset):
-            team2_channel = UNSET
-        else:
-            team2_channel = self.team2_channel
-
-        field_dict: Dict[str, Any] = {}
-        field_dict.update(
-            {key: (None, str(value).encode(), "text/plain") for key, value in self.additional_properties.items()}
-        )
         field_dict.update(
             {
                 "id": id,

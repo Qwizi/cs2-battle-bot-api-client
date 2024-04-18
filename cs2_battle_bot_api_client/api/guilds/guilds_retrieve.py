@@ -10,11 +10,11 @@ from ...types import Response
 
 
 def _get_kwargs(
-    id: str,
+    guild_id: str,
 ) -> Dict[str, Any]:
     _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": f"/api/guilds/{id}/",
+        "url": f"/api/guilds/{guild_id}/",
     }
 
     return _kwargs
@@ -41,13 +41,13 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 
 
 def sync_detailed(
-    id: str,
+    guild_id: str,
     *,
     client: AuthenticatedClient,
 ) -> Response[Guild]:
     """
     Args:
-        id (str):
+        guild_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -58,7 +58,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
+        guild_id=guild_id,
     )
 
     response = client.get_httpx_client().request(
@@ -69,13 +69,13 @@ def sync_detailed(
 
 
 def sync(
-    id: str,
+    guild_id: str,
     *,
     client: AuthenticatedClient,
 ) -> Optional[Guild]:
     """
     Args:
-        id (str):
+        guild_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -86,19 +86,19 @@ def sync(
     """
 
     return sync_detailed(
-        id=id,
+        guild_id=guild_id,
         client=client,
     ).parsed
 
 
 async def asyncio_detailed(
-    id: str,
+    guild_id: str,
     *,
     client: AuthenticatedClient,
 ) -> Response[Guild]:
     """
     Args:
-        id (str):
+        guild_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -109,7 +109,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
+        guild_id=guild_id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -118,13 +118,13 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: str,
+    guild_id: str,
     *,
     client: AuthenticatedClient,
 ) -> Optional[Guild]:
     """
     Args:
-        id (str):
+        guild_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -136,7 +136,7 @@ async def asyncio(
 
     return (
         await asyncio_detailed(
-            id=id,
+            guild_id=guild_id,
             client=client,
         )
     ).parsed

@@ -13,11 +13,7 @@ from ...types import Response
 def _get_kwargs(
     id: str,
     *,
-    body: Union[
-        PatchedDiscordUser,
-        PatchedDiscordUser,
-        PatchedDiscordUser,
-    ],
+    body: PatchedDiscordUser,
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
@@ -26,21 +22,10 @@ def _get_kwargs(
         "url": f"/api/discord-users/{id}/",
     }
 
-    if isinstance(body, PatchedDiscordUser):
-        _json_body = body.to_dict()
+    _body = body.to_dict()
 
-        _kwargs["json"] = _json_body
-        headers["Content-Type"] = "application/json"
-    if isinstance(body, PatchedDiscordUser):
-        _data_body = body.to_dict()
-
-        _kwargs["data"] = _data_body
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-    if isinstance(body, PatchedDiscordUser):
-        _files_body = body.to_multipart()
-
-        _kwargs["files"] = _files_body
-        headers["Content-Type"] = "multipart/form-data"
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
@@ -70,17 +55,11 @@ def sync_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        PatchedDiscordUser,
-        PatchedDiscordUser,
-        PatchedDiscordUser,
-    ],
+    body: PatchedDiscordUser,
 ) -> Response[DiscordUser]:
     """
     Args:
         id (str):
-        body (PatchedDiscordUser):
-        body (PatchedDiscordUser):
         body (PatchedDiscordUser):
 
     Raises:
@@ -107,17 +86,11 @@ def sync(
     id: str,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        PatchedDiscordUser,
-        PatchedDiscordUser,
-        PatchedDiscordUser,
-    ],
+    body: PatchedDiscordUser,
 ) -> Optional[DiscordUser]:
     """
     Args:
         id (str):
-        body (PatchedDiscordUser):
-        body (PatchedDiscordUser):
         body (PatchedDiscordUser):
 
     Raises:
@@ -139,17 +112,11 @@ async def asyncio_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        PatchedDiscordUser,
-        PatchedDiscordUser,
-        PatchedDiscordUser,
-    ],
+    body: PatchedDiscordUser,
 ) -> Response[DiscordUser]:
     """
     Args:
         id (str):
-        body (PatchedDiscordUser):
-        body (PatchedDiscordUser):
         body (PatchedDiscordUser):
 
     Raises:
@@ -174,17 +141,11 @@ async def asyncio(
     id: str,
     *,
     client: AuthenticatedClient,
-    body: Union[
-        PatchedDiscordUser,
-        PatchedDiscordUser,
-        PatchedDiscordUser,
-    ],
+    body: PatchedDiscordUser,
 ) -> Optional[DiscordUser]:
     """
     Args:
         id (str):
-        body (PatchedDiscordUser):
-        body (PatchedDiscordUser):
         body (PatchedDiscordUser):
 
     Raises:
