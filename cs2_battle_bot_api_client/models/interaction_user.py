@@ -10,20 +10,20 @@ T = TypeVar("T", bound="InteractionUser")
 class InteractionUser:
     """
     Attributes:
-        user_id (str):
+        interaction_user_id (str):
     """
 
-    user_id: str
+    interaction_user_id: str
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        user_id = self.user_id
+        interaction_user_id = self.interaction_user_id
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "user_id": user_id,
+                "interaction_user_id": interaction_user_id,
             }
         )
 
@@ -32,10 +32,10 @@ class InteractionUser:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        user_id = d.pop("user_id")
+        interaction_user_id = d.pop("interaction_user_id")
 
         interaction_user = cls(
-            user_id=user_id,
+            interaction_user_id=interaction_user_id,
         )
 
         interaction_user.additional_properties = d

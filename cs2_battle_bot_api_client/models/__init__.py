@@ -38,7 +38,6 @@ from .patched_match import PatchedMatch
 from .patched_player import PatchedPlayer
 from .patched_server import PatchedServer
 from .patched_steam_user import PatchedSteamUser
-from .patched_team import PatchedTeam
 from .player import Player
 from .schema_retrieve_lang import SchemaRetrieveLang
 from .schema_retrieve_response_200 import SchemaRetrieveResponse200
@@ -87,7 +86,6 @@ __all__ = (
     "PatchedPlayer",
     "PatchedServer",
     "PatchedSteamUser",
-    "PatchedTeam",
     "Player",
     "SchemaRetrieveLang",
     "SchemaRetrieveResponse200",

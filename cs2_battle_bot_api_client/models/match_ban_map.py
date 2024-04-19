@@ -10,16 +10,16 @@ T = TypeVar("T", bound="MatchBanMap")
 class MatchBanMap:
     """
     Attributes:
-        user_id (str):
+        interaction_user_id (str):
         map_tag (str):
     """
 
-    user_id: str
+    interaction_user_id: str
     map_tag: str
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        user_id = self.user_id
+        interaction_user_id = self.interaction_user_id
 
         map_tag = self.map_tag
 
@@ -27,7 +27,7 @@ class MatchBanMap:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "user_id": user_id,
+                "interaction_user_id": interaction_user_id,
                 "map_tag": map_tag,
             }
         )
@@ -37,12 +37,12 @@ class MatchBanMap:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        user_id = d.pop("user_id")
+        interaction_user_id = d.pop("interaction_user_id")
 
         map_tag = d.pop("map_tag")
 
         match_ban_map = cls(
-            user_id=user_id,
+            interaction_user_id=interaction_user_id,
             map_tag=map_tag,
         )
 
