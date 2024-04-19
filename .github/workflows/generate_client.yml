@@ -10,6 +10,8 @@ jobs:
         steps:
             -   name: Checkout repository
                 uses: actions/checkout@v4
+                with:
+                    token: ${{ secrets.RELEASE_GIT_TOKEN }}
             -   name: "Install Poetry"
                 run: "pipx install poetry"
             -   name: Install OpenAPI Python Generator
@@ -30,4 +32,14 @@ jobs:
                     sed -i "s/version = \".*\"/version = \"$VERSION\"/" pyproject.toml
                     echo "Updated version to $VERSION"
             -   name: Generate Python client
-                run: "cd .. && openapi-python-client update --path cs2-battle-bot-api-client/openapi.json && echo ls"
+                run: |
+                    cd ..
+                    openapi-python-client update --path cs2-battle-bot-api-client/openapi.json
+                    rm cs2-battle-bot-api-client/openapi.json
+            -   name: Commit and push changes
+                run: |
+                    git config --global user.email "github@actions.com"
+                    git config --global user.name "GitHub Actions"
+                    git add .
+                    git commit -m "Update client to version $VERSION"
+                    git push
