@@ -1,26 +1,14 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
-from typing import Dict
-from typing import Union
-from typing import cast
-from ..models.match_type_enum import MatchTypeEnum
-from typing import cast, List
 from ..models.map_sides_enum import MapSidesEnum
+from ..models.match_type_enum import MatchTypeEnum
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-  from ..models.create_match_cvars import CreateMatchCvars
-
-
-
+    from ..models.create_match_cvars import CreateMatchCvars
 
 
 T = TypeVar("T", bound="CreateMatch")
@@ -28,19 +16,19 @@ T = TypeVar("T", bound="CreateMatch")
 
 @_attrs_define
 class CreateMatch:
-    """ 
-        Attributes:
-            discord_users_ids (List[str]):
-            author_id (str):
-            guild_id (str):
-            server_id (Union[Unset, str]):
-            match_type (Union[Unset, MatchTypeEnum]): * `BO1` - Bo1
-                * `BO3` - Bo3
-                * `BO5` - Bo5 Default: MatchTypeEnum.BO1.
-            clinch_series (Union[Unset, bool]):  Default: False.
-            map_sides (Union[Unset, List[MapSidesEnum]]):
-            cvars (Union[Unset, CreateMatchCvars]):
-     """
+    """
+    Attributes:
+        discord_users_ids (List[str]):
+        author_id (str):
+        guild_id (str):
+        server_id (Union[Unset, str]):
+        match_type (Union[Unset, MatchTypeEnum]): * `BO1` - Bo1
+            * `BO3` - Bo3
+            * `BO5` - Bo5 Default: MatchTypeEnum.BO1.
+        clinch_series (Union[Unset, bool]):  Default: False.
+        map_sides (Union[Unset, List[MapSidesEnum]]):
+        cvars (Union[Unset, CreateMatchCvars]):
+    """
 
     discord_users_ids: List[str]
     author_id: str
@@ -49,17 +37,11 @@ class CreateMatch:
     match_type: Union[Unset, MatchTypeEnum] = MatchTypeEnum.BO1
     clinch_series: Union[Unset, bool] = False
     map_sides: Union[Unset, List[MapSidesEnum]] = UNSET
-    cvars: Union[Unset, 'CreateMatchCvars'] = UNSET
+    cvars: Union[Unset, "CreateMatchCvars"] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.create_match_cvars import CreateMatchCvars
         discord_users_ids = self.discord_users_ids
-
-
-
-
 
         author_id = self.author_id
 
@@ -71,7 +53,6 @@ class CreateMatch:
         if not isinstance(self.match_type, Unset):
             match_type = self.match_type.value
 
-
         clinch_series = self.clinch_series
 
         map_sides: Union[Unset, List[str]] = UNSET
@@ -81,22 +62,19 @@ class CreateMatch:
                 map_sides_item = map_sides_item_data.value
                 map_sides.append(map_sides_item)
 
-
-
-
-
         cvars: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.cvars, Unset):
             cvars = self.cvars.to_dict()
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "discord_users_ids": discord_users_ids,
-            "author_id": author_id,
-            "guild_id": guild_id,
-        })
+        field_dict.update(
+            {
+                "discord_users_ids": discord_users_ids,
+                "author_id": author_id,
+                "guild_id": guild_id,
+            }
+        )
         if server_id is not UNSET:
             field_dict["server_id"] = server_id
         if match_type is not UNSET:
@@ -110,14 +88,12 @@ class CreateMatch:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.create_match_cvars import CreateMatchCvars
+
         d = src_dict.copy()
         discord_users_ids = cast(List[str], d.pop("discord_users_ids"))
-
 
         author_id = d.pop("author_id")
 
@@ -127,35 +103,26 @@ class CreateMatch:
 
         _match_type = d.pop("match_type", UNSET)
         match_type: Union[Unset, MatchTypeEnum]
-        if isinstance(_match_type,  Unset):
+        if isinstance(_match_type, Unset):
             match_type = UNSET
         else:
             match_type = MatchTypeEnum(_match_type)
-
-
-
 
         clinch_series = d.pop("clinch_series", UNSET)
 
         map_sides = []
         _map_sides = d.pop("map_sides", UNSET)
-        for map_sides_item_data in (_map_sides or []):
+        for map_sides_item_data in _map_sides or []:
             map_sides_item = MapSidesEnum(map_sides_item_data)
-
-
 
             map_sides.append(map_sides_item)
 
-
         _cvars = d.pop("cvars", UNSET)
         cvars: Union[Unset, CreateMatchCvars]
-        if isinstance(_cvars,  Unset):
+        if isinstance(_cvars, Unset):
             cvars = UNSET
         else:
             cvars = CreateMatchCvars.from_dict(_cvars)
-
-
-
 
         create_match = cls(
             discord_users_ids=discord_users_ids,

@@ -6,24 +6,24 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.server import Server
+    from ..models.match_map_selected import MatchMapSelected
 
 
-T = TypeVar("T", bound="PaginatedServerList")
+T = TypeVar("T", bound="PaginatedMatchMapSelectedList")
 
 
 @_attrs_define
-class PaginatedServerList:
+class PaginatedMatchMapSelectedList:
     """
     Attributes:
         count (int):  Example: 123.
-        results (List['Server']):
+        results (List['MatchMapSelected']):
         next_ (Union[None, Unset, str]):  Example: http://api.example.org/accounts/?page=4.
         previous (Union[None, Unset, str]):  Example: http://api.example.org/accounts/?page=2.
     """
 
     count: int
-    results: List["Server"]
+    results: List["MatchMapSelected"]
     next_: Union[None, Unset, str] = UNSET
     previous: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -65,7 +65,7 @@ class PaginatedServerList:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.server import Server
+        from ..models.match_map_selected import MatchMapSelected
 
         d = src_dict.copy()
         count = d.pop("count")
@@ -73,7 +73,7 @@ class PaginatedServerList:
         results = []
         _results = d.pop("results")
         for results_item_data in _results:
-            results_item = Server.from_dict(results_item_data)
+            results_item = MatchMapSelected.from_dict(results_item_data)
 
             results.append(results_item)
 
@@ -95,15 +95,15 @@ class PaginatedServerList:
 
         previous = _parse_previous(d.pop("previous", UNSET))
 
-        paginated_server_list = cls(
+        paginated_match_map_selected_list = cls(
             count=count,
             results=results,
             next_=next_,
             previous=previous,
         )
 
-        paginated_server_list.additional_properties = d
-        return paginated_server_list
+        paginated_match_map_selected_list.additional_properties = d
+        return paginated_match_map_selected_list
 
     @property
     def additional_keys(self) -> List[str]:

@@ -1,39 +1,28 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from ...models.match_pick_map_result import MatchPickMapResult
-from typing import cast
+from ...client import AuthenticatedClient, Client
 from ...models.match_pick_map import MatchPickMap
-from typing import Dict
-
+from ...models.match_pick_map_result import MatchPickMapResult
+from ...types import Response
 
 
 def _get_kwargs(
     id: int,
     *,
     body: MatchPickMap,
-
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
-
-    
-
-    
-
     _kwargs: Dict[str, Any] = {
         "method": "post",
-        "url": "/api/matches/{id}/pick/".format(id=id,),
+        "url": f"/api/matches/{id}/pick/",
     }
 
     _body = body.to_dict()
-
 
     _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
@@ -42,11 +31,11 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[MatchPickMapResult]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[MatchPickMapResult]:
     if response.status_code == HTTPStatus.OK:
         response_200 = MatchPickMapResult.from_dict(response.json())
-
-
 
         return response_200
     if client.raise_on_unexpected_status:
@@ -55,7 +44,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[MatchPickMapResult]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[MatchPickMapResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -69,9 +60,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: MatchPickMap,
-
 ) -> Response[MatchPickMapResult]:
-    """ 
+    """
     Args:
         id (int):
         body (MatchPickMap):
@@ -82,13 +72,11 @@ def sync_detailed(
 
     Returns:
         Response[MatchPickMapResult]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-body=body,
-
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -97,14 +85,14 @@ body=body,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     id: int,
     *,
     client: AuthenticatedClient,
     body: MatchPickMap,
-
 ) -> Optional[MatchPickMapResult]:
-    """ 
+    """
     Args:
         id (int):
         body (MatchPickMap):
@@ -115,24 +103,22 @@ def sync(
 
     Returns:
         MatchPickMapResult
-     """
-
+    """
 
     return sync_detailed(
         id=id,
-client=client,
-body=body,
-
+        client=client,
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
     body: MatchPickMap,
-
 ) -> Response[MatchPickMapResult]:
-    """ 
+    """
     Args:
         id (int):
         body (MatchPickMap):
@@ -143,29 +129,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[MatchPickMapResult]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-body=body,
-
+        body=body,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     id: int,
     *,
     client: AuthenticatedClient,
     body: MatchPickMap,
-
 ) -> Optional[MatchPickMapResult]:
-    """ 
+    """
     Args:
         id (int):
         body (MatchPickMap):
@@ -176,12 +158,12 @@ async def asyncio(
 
     Returns:
         MatchPickMapResult
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        id=id,
-client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            id=id,
+            client=client,
+            body=body,
+        )
+    ).parsed

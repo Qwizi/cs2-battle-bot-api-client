@@ -1,39 +1,28 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.discord_user import DiscordUser
-from typing import cast
-from typing import Dict
 from ...models.patched_discord_user import PatchedDiscordUser
-
+from ...types import Response
 
 
 def _get_kwargs(
     id: str,
     *,
     body: PatchedDiscordUser,
-
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
-
-    
-
-    
-
     _kwargs: Dict[str, Any] = {
         "method": "patch",
-        "url": "/api/discord-users/{id}/".format(id=id,),
+        "url": f"/api/discord-users/{id}/",
     }
 
     _body = body.to_dict()
-
 
     _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
@@ -45,8 +34,6 @@ def _get_kwargs(
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[DiscordUser]:
     if response.status_code == HTTPStatus.OK:
         response_200 = DiscordUser.from_dict(response.json())
-
-
 
         return response_200
     if client.raise_on_unexpected_status:
@@ -69,9 +56,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: PatchedDiscordUser,
-
 ) -> Response[DiscordUser]:
-    """ 
+    """
     Args:
         id (str):
         body (PatchedDiscordUser):
@@ -82,13 +68,11 @@ def sync_detailed(
 
     Returns:
         Response[DiscordUser]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-body=body,
-
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -97,14 +81,14 @@ body=body,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     id: str,
     *,
     client: AuthenticatedClient,
     body: PatchedDiscordUser,
-
 ) -> Optional[DiscordUser]:
-    """ 
+    """
     Args:
         id (str):
         body (PatchedDiscordUser):
@@ -115,24 +99,22 @@ def sync(
 
     Returns:
         DiscordUser
-     """
-
+    """
 
     return sync_detailed(
         id=id,
-client=client,
-body=body,
-
+        client=client,
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
     body: PatchedDiscordUser,
-
 ) -> Response[DiscordUser]:
-    """ 
+    """
     Args:
         id (str):
         body (PatchedDiscordUser):
@@ -143,29 +125,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[DiscordUser]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-body=body,
-
+        body=body,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     id: str,
     *,
     client: AuthenticatedClient,
     body: PatchedDiscordUser,
-
 ) -> Optional[DiscordUser]:
-    """ 
+    """
     Args:
         id (str):
         body (PatchedDiscordUser):
@@ -176,12 +154,12 @@ async def asyncio(
 
     Returns:
         DiscordUser
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        id=id,
-client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            id=id,
+            client=client,
+            body=body,
+        )
+    ).parsed

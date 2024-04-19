@@ -1,38 +1,27 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.steam_user import SteamUser
-from typing import cast
-from typing import Dict
-
+from ...types import Response
 
 
 def _get_kwargs(
     id: str,
     *,
     body: SteamUser,
-
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
-
-    
-
-    
-
     _kwargs: Dict[str, Any] = {
         "method": "put",
-        "url": "/api/steam-users/{id}/".format(id=id,),
+        "url": f"/api/steam-users/{id}/",
     }
 
     _body = body.to_dict()
-
 
     _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
@@ -44,8 +33,6 @@ def _get_kwargs(
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[SteamUser]:
     if response.status_code == HTTPStatus.OK:
         response_200 = SteamUser.from_dict(response.json())
-
-
 
         return response_200
     if client.raise_on_unexpected_status:
@@ -68,9 +55,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: SteamUser,
-
 ) -> Response[SteamUser]:
-    """ 
+    """
     Args:
         id (str):
         body (SteamUser):
@@ -81,13 +67,11 @@ def sync_detailed(
 
     Returns:
         Response[SteamUser]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-body=body,
-
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -96,14 +80,14 @@ body=body,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     id: str,
     *,
     client: AuthenticatedClient,
     body: SteamUser,
-
 ) -> Optional[SteamUser]:
-    """ 
+    """
     Args:
         id (str):
         body (SteamUser):
@@ -114,24 +98,22 @@ def sync(
 
     Returns:
         SteamUser
-     """
-
+    """
 
     return sync_detailed(
         id=id,
-client=client,
-body=body,
-
+        client=client,
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
     body: SteamUser,
-
 ) -> Response[SteamUser]:
-    """ 
+    """
     Args:
         id (str):
         body (SteamUser):
@@ -142,29 +124,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[SteamUser]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-body=body,
-
+        body=body,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     id: str,
     *,
     client: AuthenticatedClient,
     body: SteamUser,
-
 ) -> Optional[SteamUser]:
-    """ 
+    """
     Args:
         id (str):
         body (SteamUser):
@@ -175,12 +153,12 @@ async def asyncio(
 
     Returns:
         SteamUser
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        id=id,
-client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            id=id,
+            client=client,
+            body=body,
+        )
+    ).parsed
