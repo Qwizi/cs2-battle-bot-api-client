@@ -1,28 +1,39 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.match_ban_map import MatchBanMap
+from typing import cast
+from typing import Dict
 from ...models.match_ban_map_result import MatchBanMapResult
-from ...types import Response
+
 
 
 def _get_kwargs(
     id: int,
     *,
     body: MatchBanMap,
+
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
+
+    
+
+    
+
     _kwargs: Dict[str, Any] = {
         "method": "post",
-        "url": f"/api/matches/{id}/ban/",
+        "url": "/api/matches/{id}/ban/".format(id=id,),
     }
 
     _body = body.to_dict()
+
 
     _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
@@ -31,11 +42,11 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[MatchBanMapResult]:
+def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[MatchBanMapResult]:
     if response.status_code == HTTPStatus.OK:
         response_200 = MatchBanMapResult.from_dict(response.json())
+
+
 
         return response_200
     if client.raise_on_unexpected_status:
@@ -44,9 +55,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[MatchBanMapResult]:
+def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[MatchBanMapResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -60,8 +69,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: MatchBanMap,
+
 ) -> Response[MatchBanMapResult]:
-    """
+    """ 
     Args:
         id (int):
         body (MatchBanMap):
@@ -72,11 +82,13 @@ def sync_detailed(
 
     Returns:
         Response[MatchBanMapResult]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         id=id,
-        body=body,
+body=body,
+
     )
 
     response = client.get_httpx_client().request(
@@ -85,14 +97,14 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     id: int,
     *,
     client: AuthenticatedClient,
     body: MatchBanMap,
+
 ) -> Optional[MatchBanMapResult]:
-    """
+    """ 
     Args:
         id (int):
         body (MatchBanMap):
@@ -103,22 +115,24 @@ def sync(
 
     Returns:
         MatchBanMapResult
-    """
+     """
+
 
     return sync_detailed(
         id=id,
-        client=client,
-        body=body,
-    ).parsed
+client=client,
+body=body,
 
+    ).parsed
 
 async def asyncio_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
     body: MatchBanMap,
+
 ) -> Response[MatchBanMapResult]:
-    """
+    """ 
     Args:
         id (int):
         body (MatchBanMap):
@@ -129,25 +143,29 @@ async def asyncio_detailed(
 
     Returns:
         Response[MatchBanMapResult]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         id=id,
-        body=body,
+body=body,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     id: int,
     *,
     client: AuthenticatedClient,
     body: MatchBanMap,
+
 ) -> Optional[MatchBanMapResult]:
-    """
+    """ 
     Args:
         id (int):
         body (MatchBanMap):
@@ -158,12 +176,12 @@ async def asyncio(
 
     Returns:
         MatchBanMapResult
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            id=id,
-            client=client,
-            body=body,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        id=id,
+client=client,
+body=body,
+
+    )).parsed

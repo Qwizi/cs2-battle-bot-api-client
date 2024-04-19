@@ -1,25 +1,37 @@
-import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
+
+from typing import Union
+from typing import cast
+from dateutil.parser import isoparse
+import datetime
+from ..types import UNSET, Unset
+
+
+
+
+
 
 T = TypeVar("T", bound="PatchedDiscordUser")
 
 
 @_attrs_define
 class PatchedDiscordUser:
-    """
-    Attributes:
-        id (Union[Unset, str]):
-        user_id (Union[Unset, str]):
-        username (Union[Unset, str]):
-        created_at (Union[Unset, datetime.datetime]):
-        updated_at (Union[Unset, datetime.datetime]):
-    """
+    """ 
+        Attributes:
+            id (Union[Unset, str]):
+            user_id (Union[Unset, str]):
+            username (Union[Unset, str]):
+            created_at (Union[Unset, datetime.datetime]):
+            updated_at (Union[Unset, datetime.datetime]):
+     """
 
     id: Union[Unset, str] = UNSET
     user_id: Union[Unset, str] = UNSET
@@ -27,6 +39,7 @@ class PatchedDiscordUser:
     created_at: Union[Unset, datetime.datetime] = UNSET
     updated_at: Union[Unset, datetime.datetime] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+
 
     def to_dict(self) -> Dict[str, Any]:
         id = self.id
@@ -43,9 +56,11 @@ class PatchedDiscordUser:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if user_id is not UNSET:
@@ -59,6 +74,8 @@ class PatchedDiscordUser:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
@@ -70,17 +87,23 @@ class PatchedDiscordUser:
 
         _created_at = d.pop("created_at", UNSET)
         created_at: Union[Unset, datetime.datetime]
-        if isinstance(_created_at, Unset):
+        if isinstance(_created_at,  Unset):
             created_at = UNSET
         else:
             created_at = isoparse(_created_at)
 
+
+
+
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: Union[Unset, datetime.datetime]
-        if isinstance(_updated_at, Unset):
+        if isinstance(_updated_at,  Unset):
             updated_at = UNSET
         else:
             updated_at = isoparse(_updated_at)
+
+
+
 
         patched_discord_user = cls(
             id=id,

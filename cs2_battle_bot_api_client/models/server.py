@@ -1,26 +1,38 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from typing import Union
+from typing import cast, Union
+from ..types import UNSET, Unset
+
+
+
+
+
+
 T = TypeVar("T", bound="Server")
 
 
 @_attrs_define
 class Server:
-    """
-    Attributes:
-        id (str):
-        name (str):
-        ip (str):
-        port (int):
-        password (Union[None, Unset, str]):
-        is_public (Union[Unset, bool]):
-        rcon_password (Union[Unset, str]):
-        guild (Union[None, Unset, str]):
-    """
+    """ 
+        Attributes:
+            id (str):
+            name (str):
+            ip (str):
+            port (int):
+            password (Union[None, Unset, str]):
+            is_public (Union[Unset, bool]):
+            rcon_password (Union[Unset, str]):
+            guild (Union[None, Unset, str]):
+     """
 
     id: str
     name: str
@@ -31,6 +43,7 @@ class Server:
     rcon_password: Union[Unset, str] = UNSET
     guild: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+
 
     def to_dict(self) -> Dict[str, Any]:
         id = self.id
@@ -57,16 +70,15 @@ class Server:
         else:
             guild = self.guild
 
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "id": id,
-                "name": name,
-                "ip": ip,
-                "port": port,
-            }
-        )
+        field_dict.update({
+            "id": id,
+            "name": name,
+            "ip": ip,
+            "port": port,
+        })
         if password is not UNSET:
             field_dict["password"] = password
         if is_public is not UNSET:
@@ -77,6 +89,8 @@ class Server:
             field_dict["guild"] = guild
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
@@ -98,6 +112,7 @@ class Server:
 
         password = _parse_password(d.pop("password", UNSET))
 
+
         is_public = d.pop("is_public", UNSET)
 
         rcon_password = d.pop("rcon_password", UNSET)
@@ -110,6 +125,7 @@ class Server:
             return cast(Union[None, Unset, str], data)
 
         guild = _parse_guild(d.pop("guild", UNSET))
+
 
         server = cls(
             id=id,

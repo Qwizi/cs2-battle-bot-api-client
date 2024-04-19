@@ -1,26 +1,38 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from typing import Union
+from typing import cast, Union
+from ..types import UNSET, Unset
+
+
+
+
+
+
 T = TypeVar("T", bound="PatchedServer")
 
 
 @_attrs_define
 class PatchedServer:
-    """
-    Attributes:
-        id (Union[Unset, str]):
-        name (Union[Unset, str]):
-        ip (Union[Unset, str]):
-        port (Union[Unset, int]):
-        password (Union[None, Unset, str]):
-        is_public (Union[Unset, bool]):
-        rcon_password (Union[Unset, str]):
-        guild (Union[None, Unset, str]):
-    """
+    """ 
+        Attributes:
+            id (Union[Unset, str]):
+            name (Union[Unset, str]):
+            ip (Union[Unset, str]):
+            port (Union[Unset, int]):
+            password (Union[None, Unset, str]):
+            is_public (Union[Unset, bool]):
+            rcon_password (Union[Unset, str]):
+            guild (Union[None, Unset, str]):
+     """
 
     id: Union[Unset, str] = UNSET
     name: Union[Unset, str] = UNSET
@@ -31,6 +43,7 @@ class PatchedServer:
     rcon_password: Union[Unset, str] = UNSET
     guild: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+
 
     def to_dict(self) -> Dict[str, Any]:
         id = self.id
@@ -57,9 +70,11 @@ class PatchedServer:
         else:
             guild = self.guild
 
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if name is not UNSET:
@@ -78,6 +93,8 @@ class PatchedServer:
             field_dict["guild"] = guild
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
@@ -99,6 +116,7 @@ class PatchedServer:
 
         password = _parse_password(d.pop("password", UNSET))
 
+
         is_public = d.pop("is_public", UNSET)
 
         rcon_password = d.pop("rcon_password", UNSET)
@@ -111,6 +129,7 @@ class PatchedServer:
             return cast(Union[None, Unset, str], data)
 
         guild = _parse_guild(d.pop("guild", UNSET))
+
 
         patched_server = cls(
             id=id,

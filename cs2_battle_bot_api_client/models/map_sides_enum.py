@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class MapSidesEnum(str, Enum):
     KNIFE = "knife"
     TEAM1_CT = "team1_ct"

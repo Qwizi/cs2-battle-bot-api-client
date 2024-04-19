@@ -1,28 +1,41 @@
-import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
+
+from typing import Union
+from typing import cast
+from dateutil.parser import isoparse
+import datetime
+from typing import cast, Union
+from ..types import UNSET, Unset
+
+
+
+
+
 
 T = TypeVar("T", bound="PatchedSteamUser")
 
 
 @_attrs_define
 class PatchedSteamUser:
-    """
-    Attributes:
-        id (Union[Unset, str]):
-        username (Union[Unset, str]):
-        steamid64 (Union[None, Unset, str]):
-        steamid32 (Union[None, Unset, str]):
-        profile_url (Union[None, Unset, str]):
-        avatar (Union[None, Unset, str]):
-        created_at (Union[Unset, datetime.datetime]):
-        updated_at (Union[Unset, datetime.datetime]):
-    """
+    """ 
+        Attributes:
+            id (Union[Unset, str]):
+            username (Union[Unset, str]):
+            steamid64 (Union[None, Unset, str]):
+            steamid32 (Union[None, Unset, str]):
+            profile_url (Union[None, Unset, str]):
+            avatar (Union[None, Unset, str]):
+            created_at (Union[Unset, datetime.datetime]):
+            updated_at (Union[Unset, datetime.datetime]):
+     """
 
     id: Union[Unset, str] = UNSET
     username: Union[Unset, str] = UNSET
@@ -33,6 +46,7 @@ class PatchedSteamUser:
     created_at: Union[Unset, datetime.datetime] = UNSET
     updated_at: Union[Unset, datetime.datetime] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+
 
     def to_dict(self) -> Dict[str, Any]:
         id = self.id
@@ -71,9 +85,11 @@ class PatchedSteamUser:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if username is not UNSET:
@@ -93,6 +109,8 @@ class PatchedSteamUser:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
@@ -109,6 +127,7 @@ class PatchedSteamUser:
 
         steamid64 = _parse_steamid64(d.pop("steamid64", UNSET))
 
+
         def _parse_steamid32(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -117,6 +136,7 @@ class PatchedSteamUser:
             return cast(Union[None, Unset, str], data)
 
         steamid32 = _parse_steamid32(d.pop("steamid32", UNSET))
+
 
         def _parse_profile_url(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -127,6 +147,7 @@ class PatchedSteamUser:
 
         profile_url = _parse_profile_url(d.pop("profile_url", UNSET))
 
+
         def _parse_avatar(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -136,19 +157,26 @@ class PatchedSteamUser:
 
         avatar = _parse_avatar(d.pop("avatar", UNSET))
 
+
         _created_at = d.pop("created_at", UNSET)
         created_at: Union[Unset, datetime.datetime]
-        if isinstance(_created_at, Unset):
+        if isinstance(_created_at,  Unset):
             created_at = UNSET
         else:
             created_at = isoparse(_created_at)
 
+
+
+
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: Union[Unset, datetime.datetime]
-        if isinstance(_updated_at, Unset):
+        if isinstance(_updated_at,  Unset):
             updated_at = UNSET
         else:
             updated_at = isoparse(_updated_at)
+
+
+
 
         patched_steam_user = cls(
             id=id,

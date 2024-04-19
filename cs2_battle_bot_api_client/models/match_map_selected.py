@@ -1,13 +1,24 @@
-import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
+from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+
+from ..types import UNSET, Unset
+
+import datetime
+from typing import cast
 from dateutil.parser import isoparse
+from typing import Dict
 
 if TYPE_CHECKING:
-    from ..models.map_ import Map
-    from ..models.team import Team
+  from ..models.team import Team
+  from ..models.map_ import Map
+
+
+
 
 
 T = TypeVar("T", bound="MatchMapSelected")
@@ -15,23 +26,26 @@ T = TypeVar("T", bound="MatchMapSelected")
 
 @_attrs_define
 class MatchMapSelected:
-    """
-    Attributes:
-        id (int):
-        team (Team):
-        map_ (Map):
-        created_at (datetime.datetime):
-        updated_at (datetime.datetime):
-    """
+    """ 
+        Attributes:
+            id (int):
+            team (Team):
+            map_ (Map):
+            created_at (datetime.datetime):
+            updated_at (datetime.datetime):
+     """
 
     id: int
-    team: "Team"
-    map_: "Map"
+    team: 'Team'
+    map_: 'Map'
     created_at: datetime.datetime
     updated_at: datetime.datetime
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
     def to_dict(self) -> Dict[str, Any]:
+        from ..models.team import Team
+        from ..models.map_ import Map
         id = self.id
 
         team = self.team.to_dict()
@@ -42,35 +56,47 @@ class MatchMapSelected:
 
         updated_at = self.updated_at.isoformat()
 
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "id": id,
-                "team": team,
-                "map": map_,
-                "created_at": created_at,
-                "updated_at": updated_at,
-            }
-        )
+        field_dict.update({
+            "id": id,
+            "team": team,
+            "map": map_,
+            "created_at": created_at,
+            "updated_at": updated_at,
+        })
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.map_ import Map
         from ..models.team import Team
-
+        from ..models.map_ import Map
         d = src_dict.copy()
         id = d.pop("id")
 
         team = Team.from_dict(d.pop("team"))
 
+
+
+
         map_ = Map.from_dict(d.pop("map"))
+
+
+
 
         created_at = isoparse(d.pop("created_at"))
 
+
+
+
         updated_at = isoparse(d.pop("updated_at"))
+
+
+
 
         match_map_selected = cls(
             id=id,

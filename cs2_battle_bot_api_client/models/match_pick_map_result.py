@@ -1,26 +1,39 @@
-from typing import Any, Dict, List, Type, TypeVar, cast
+from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+
+from ..types import UNSET, Unset
+
+from typing import cast, List
+
+
+
+
+
 
 T = TypeVar("T", bound="MatchPickMapResult")
 
 
 @_attrs_define
 class MatchPickMapResult:
-    """
-    Attributes:
-        picked_map (str):
-        next_pick_team_leader (str):
-        maps_left (List[str]):
-        map_picks_count (int):
-    """
+    """ 
+        Attributes:
+            picked_map (str):
+            next_pick_team_leader (str):
+            maps_left (List[str]):
+            map_picks_count (int):
+     """
 
     picked_map: str
     next_pick_team_leader: str
     maps_left: List[str]
     map_picks_count: int
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+
 
     def to_dict(self) -> Dict[str, Any]:
         picked_map = self.picked_map
@@ -29,20 +42,25 @@ class MatchPickMapResult:
 
         maps_left = self.maps_left
 
+
+
+
+
         map_picks_count = self.map_picks_count
+
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "picked_map": picked_map,
-                "next_pick_team_leader": next_pick_team_leader,
-                "maps_left": maps_left,
-                "map_picks_count": map_picks_count,
-            }
-        )
+        field_dict.update({
+            "picked_map": picked_map,
+            "next_pick_team_leader": next_pick_team_leader,
+            "maps_left": maps_left,
+            "map_picks_count": map_picks_count,
+        })
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
@@ -52,6 +70,7 @@ class MatchPickMapResult:
         next_pick_team_leader = d.pop("next_pick_team_leader")
 
         maps_left = cast(List[str], d.pop("maps_left"))
+
 
         map_picks_count = d.pop("map_picks_count")
 

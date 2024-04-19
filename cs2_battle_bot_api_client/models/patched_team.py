@@ -1,14 +1,26 @@
-import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
+from typing import Dict
+from typing import Union
+from typing import cast
+import datetime
+from dateutil.parser import isoparse
+from typing import cast, List
+from ..types import UNSET, Unset
+
 if TYPE_CHECKING:
-    from ..models.player import Player
+  from ..models.player import Player
+
+
+
 
 
 T = TypeVar("T", bound="PatchedTeam")
@@ -16,25 +28,27 @@ T = TypeVar("T", bound="PatchedTeam")
 
 @_attrs_define
 class PatchedTeam:
-    """
-    Attributes:
-        id (Union[Unset, str]):
-        players (Union[Unset, List['Player']]):
-        leader (Union[Unset, Player]):
-        name (Union[Unset, str]):
-        created_at (Union[Unset, datetime.datetime]):
-        updated_at (Union[Unset, datetime.datetime]):
-    """
+    """ 
+        Attributes:
+            id (Union[Unset, str]):
+            players (Union[Unset, List['Player']]):
+            leader (Union[Unset, Player]):
+            name (Union[Unset, str]):
+            created_at (Union[Unset, datetime.datetime]):
+            updated_at (Union[Unset, datetime.datetime]):
+     """
 
     id: Union[Unset, str] = UNSET
-    players: Union[Unset, List["Player"]] = UNSET
-    leader: Union[Unset, "Player"] = UNSET
+    players: Union[Unset, List['Player']] = UNSET
+    leader: Union[Unset, 'Player'] = UNSET
     name: Union[Unset, str] = UNSET
     created_at: Union[Unset, datetime.datetime] = UNSET
     updated_at: Union[Unset, datetime.datetime] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
     def to_dict(self) -> Dict[str, Any]:
+        from ..models.player import Player
         id = self.id
 
         players: Union[Unset, List[Dict[str, Any]]] = UNSET
@@ -43,6 +57,10 @@ class PatchedTeam:
             for players_item_data in self.players:
                 players_item = players_item_data.to_dict()
                 players.append(players_item)
+
+
+
+
 
         leader: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.leader, Unset):
@@ -58,9 +76,11 @@ class PatchedTeam:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if players is not UNSET:
@@ -76,42 +96,55 @@ class PatchedTeam:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.player import Player
-
         d = src_dict.copy()
         id = d.pop("id", UNSET)
 
         players = []
         _players = d.pop("players", UNSET)
-        for players_item_data in _players or []:
+        for players_item_data in (_players or []):
             players_item = Player.from_dict(players_item_data)
+
+
 
             players.append(players_item)
 
+
         _leader = d.pop("leader", UNSET)
         leader: Union[Unset, Player]
-        if isinstance(_leader, Unset):
+        if isinstance(_leader,  Unset):
             leader = UNSET
         else:
             leader = Player.from_dict(_leader)
+
+
+
 
         name = d.pop("name", UNSET)
 
         _created_at = d.pop("created_at", UNSET)
         created_at: Union[Unset, datetime.datetime]
-        if isinstance(_created_at, Unset):
+        if isinstance(_created_at,  Unset):
             created_at = UNSET
         else:
             created_at = isoparse(_created_at)
 
+
+
+
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: Union[Unset, datetime.datetime]
-        if isinstance(_updated_at, Unset):
+        if isinstance(_updated_at,  Unset):
             updated_at = UNSET
         else:
             updated_at = isoparse(_updated_at)
+
+
+
 
         patched_team = cls(
             id=id,
