@@ -12,7 +12,8 @@ jobs:
                 uses: actions/checkout@v4
 #            -   name: Download OpenAPI schema
 #                run: "curl -LJO https://raw.githubusercontent.com/Qwizi/cs2-battle-bot-api/feature/src/openapi.json"
-
+            -   name: "Install Poetry"
+                run: "pipx install poetry"
             -   name: Install OpenAPI Python Generator
                 run: "pipx install openapi-python-client"
             -   name: Set up Python ${{matrix.python-version}}
