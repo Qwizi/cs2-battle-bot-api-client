@@ -5,6 +5,7 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.interaction_user import InteractionUser
 from ...models.match import Match
 from ...types import Response
 
@@ -12,7 +13,7 @@ from ...types import Response
 def _get_kwargs(
     id: int,
     *,
-    body: Match,
+    body: InteractionUser,
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
@@ -54,12 +55,12 @@ def sync_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: Match,
+    body: InteractionUser,
 ) -> Response[Match]:
     """
     Args:
         id (int):
-        body (Match):
+        body (InteractionUser):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -85,12 +86,12 @@ def sync(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: Match,
+    body: InteractionUser,
 ) -> Optional[Match]:
     """
     Args:
         id (int):
-        body (Match):
+        body (InteractionUser):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -111,12 +112,12 @@ async def asyncio_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: Match,
+    body: InteractionUser,
 ) -> Response[Match]:
     """
     Args:
         id (int):
-        body (Match):
+        body (InteractionUser):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -140,12 +141,12 @@ async def asyncio(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: Match,
+    body: InteractionUser,
 ) -> Optional[Match]:
     """
     Args:
         id (int):
-        body (Match):
+        body (InteractionUser):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -29,11 +29,12 @@ class Match:
         team1 (Team):
         team2 (Team):
         maps (List['Map']):
+        winner_team (Union['Team', None]):
         map_bans (List['MapBan']):
         map_picks (List['MatchMapSelected']):
         connect_command (str):
         load_match_command (str):
-        server (Server):
+        server (Union['Server', None]):
         guild (Guild):
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
@@ -51,7 +52,6 @@ class Match:
         cvars (Union[Unset, Any]):
         players_per_team (Union[Unset, int]):
         message_id (Union[None, Unset, str]):
-        winner_team (Union[None, Unset, str]):
         author (Union[None, Unset, str]):
     """
 
@@ -59,11 +59,12 @@ class Match:
     team1: "Team"
     team2: "Team"
     maps: List["Map"]
+    winner_team: Union["Team", None]
     map_bans: List["MapBan"]
     map_picks: List["MatchMapSelected"]
     connect_command: str
     load_match_command: str
-    server: "Server"
+    server: Union["Server", None]
     guild: "Guild"
     created_at: datetime.datetime
     updated_at: datetime.datetime
@@ -76,11 +77,13 @@ class Match:
     cvars: Union[Unset, Any] = UNSET
     players_per_team: Union[Unset, int] = UNSET
     message_id: Union[None, Unset, str] = UNSET
-    winner_team: Union[None, Unset, str] = UNSET
     author: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        from ..models.server import Server
+        from ..models.team import Team
+
         id = self.id
 
         team1 = self.team1.to_dict()
@@ -91,6 +94,12 @@ class Match:
         for maps_item_data in self.maps:
             maps_item = maps_item_data.to_dict()
             maps.append(maps_item)
+
+        winner_team: Union[Dict[str, Any], None]
+        if isinstance(self.winner_team, Team):
+            winner_team = self.winner_team.to_dict()
+        else:
+            winner_team = self.winner_team
 
         map_bans = []
         for map_bans_item_data in self.map_bans:
@@ -106,7 +115,11 @@ class Match:
 
         load_match_command = self.load_match_command
 
-        server = self.server.to_dict()
+        server: Union[Dict[str, Any], None]
+        if isinstance(self.server, Server):
+            server = self.server.to_dict()
+        else:
+            server = self.server
 
         guild = self.guild.to_dict()
 
@@ -140,12 +153,6 @@ class Match:
         else:
             message_id = self.message_id
 
-        winner_team: Union[None, Unset, str]
-        if isinstance(self.winner_team, Unset):
-            winner_team = UNSET
-        else:
-            winner_team = self.winner_team
-
         author: Union[None, Unset, str]
         if isinstance(self.author, Unset):
             author = UNSET
@@ -160,6 +167,7 @@ class Match:
                 "team1": team1,
                 "team2": team2,
                 "maps": maps,
+                "winner_team": winner_team,
                 "map_bans": map_bans,
                 "map_picks": map_picks,
                 "connect_command": connect_command,
@@ -188,8 +196,6 @@ class Match:
             field_dict["players_per_team"] = players_per_team
         if message_id is not UNSET:
             field_dict["message_id"] = message_id
-        if winner_team is not UNSET:
-            field_dict["winner_team"] = winner_team
         if author is not UNSET:
             field_dict["author"] = author
 
@@ -218,6 +224,21 @@ class Match:
 
             maps.append(maps_item)
 
+        def _parse_winner_team(data: object) -> Union["Team", None]:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                winner_team_type_1 = Team.from_dict(data)
+
+                return winner_team_type_1
+            except:  # noqa: E722
+                pass
+            return cast(Union["Team", None], data)
+
+        winner_team = _parse_winner_team(d.pop("winner_team"))
+
         map_bans = []
         _map_bans = d.pop("map_bans")
         for map_bans_item_data in _map_bans:
@@ -236,7 +257,20 @@ class Match:
 
         load_match_command = d.pop("load_match_command")
 
-        server = Server.from_dict(d.pop("server"))
+        def _parse_server(data: object) -> Union["Server", None]:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                server_type_1 = Server.from_dict(data)
+
+                return server_type_1
+            except:  # noqa: E722
+                pass
+            return cast(Union["Server", None], data)
+
+        server = _parse_server(d.pop("server"))
 
         guild = Guild.from_dict(d.pop("guild"))
 
@@ -279,15 +313,6 @@ class Match:
 
         message_id = _parse_message_id(d.pop("message_id", UNSET))
 
-        def _parse_winner_team(data: object) -> Union[None, Unset, str]:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            return cast(Union[None, Unset, str], data)
-
-        winner_team = _parse_winner_team(d.pop("winner_team", UNSET))
-
         def _parse_author(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -302,6 +327,7 @@ class Match:
             team1=team1,
             team2=team2,
             maps=maps,
+            winner_team=winner_team,
             map_bans=map_bans,
             map_picks=map_picks,
             connect_command=connect_command,
@@ -319,7 +345,6 @@ class Match:
             cvars=cvars,
             players_per_team=players_per_team,
             message_id=message_id,
-            winner_team=winner_team,
             author=author,
         )
 

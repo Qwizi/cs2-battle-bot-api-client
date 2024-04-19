@@ -6,6 +6,7 @@ from .create_match import CreateMatch
 from .create_match_cvars import CreateMatchCvars
 from .discord_user import DiscordUser
 from .guild import Guild
+from .interaction_user import InteractionUser
 from .map_ import Map
 from .map_ban import MapBan
 from .map_sides_enum import MapSidesEnum
@@ -19,12 +20,13 @@ from .match_config_team_2 import MatchConfigTeam2
 from .match_map_selected import MatchMapSelected
 from .match_pick_map import MatchPickMap
 from .match_pick_map_result import MatchPickMapResult
-from .match_player_join import MatchPlayerJoin
 from .match_type_enum import MatchTypeEnum
 from .paginated_discord_user_list import PaginatedDiscordUserList
 from .paginated_guild_list import PaginatedGuildList
+from .paginated_map_ban_list import PaginatedMapBanList
 from .paginated_map_list import PaginatedMapList
 from .paginated_match_list import PaginatedMatchList
+from .paginated_match_map_selected_list import PaginatedMatchMapSelectedList
 from .paginated_player_list import PaginatedPlayerList
 from .paginated_server_list import PaginatedServerList
 from .paginated_steam_user_list import PaginatedSteamUserList
@@ -53,6 +55,7 @@ __all__ = (
     "CreateMatchCvars",
     "DiscordUser",
     "Guild",
+    "InteractionUser",
     "Map",
     "MapBan",
     "MapSidesEnum",
@@ -66,12 +69,13 @@ __all__ = (
     "MatchMapSelected",
     "MatchPickMap",
     "MatchPickMapResult",
-    "MatchPlayerJoin",
     "MatchTypeEnum",
     "PaginatedDiscordUserList",
     "PaginatedGuildList",
+    "PaginatedMapBanList",
     "PaginatedMapList",
     "PaginatedMatchList",
+    "PaginatedMatchMapSelectedList",
     "PaginatedPlayerList",
     "PaginatedServerList",
     "PaginatedSteamUserList",
