@@ -15,7 +15,7 @@ jobs:
             -   name: "Install Poetry"
                 run: "pipx install poetry"
             -   name: Install OpenAPI Python Generator
-                run: "pipx install openapi-python-client"
+                run: "pipx install openapi-python-client --include-deps"
             -   name: Set up Python ${{matrix.python-version}}
                 uses: "actions/setup-python@v5"
                 with:
