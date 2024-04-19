@@ -1,28 +1,39 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
+from typing import cast
 from ...models.create_guild_member import CreateGuildMember
+from typing import Dict
 from ...models.guild import Guild
-from ...types import Response
+
 
 
 def _get_kwargs(
     guild_id: str,
     *,
     body: CreateGuildMember,
+
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
+
+    
+
+    
+
     _kwargs: Dict[str, Any] = {
         "method": "post",
-        "url": f"/api/guilds/{guild_id}/add_member/",
+        "url": "/api/guilds/{guild_id}/add_member/".format(guild_id=guild_id,),
     }
 
     _body = body.to_dict()
+
 
     _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
@@ -34,6 +45,8 @@ def _get_kwargs(
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Guild]:
     if response.status_code == HTTPStatus.OK:
         response_200 = Guild.from_dict(response.json())
+
+
 
         return response_200
     if client.raise_on_unexpected_status:
@@ -56,8 +69,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: CreateGuildMember,
+
 ) -> Response[Guild]:
-    """
+    """ 
     Args:
         guild_id (str):
         body (CreateGuildMember):
@@ -68,11 +82,13 @@ def sync_detailed(
 
     Returns:
         Response[Guild]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         guild_id=guild_id,
-        body=body,
+body=body,
+
     )
 
     response = client.get_httpx_client().request(
@@ -81,14 +97,14 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     guild_id: str,
     *,
     client: AuthenticatedClient,
     body: CreateGuildMember,
+
 ) -> Optional[Guild]:
-    """
+    """ 
     Args:
         guild_id (str):
         body (CreateGuildMember):
@@ -99,22 +115,24 @@ def sync(
 
     Returns:
         Guild
-    """
+     """
+
 
     return sync_detailed(
         guild_id=guild_id,
-        client=client,
-        body=body,
-    ).parsed
+client=client,
+body=body,
 
+    ).parsed
 
 async def asyncio_detailed(
     guild_id: str,
     *,
     client: AuthenticatedClient,
     body: CreateGuildMember,
+
 ) -> Response[Guild]:
-    """
+    """ 
     Args:
         guild_id (str):
         body (CreateGuildMember):
@@ -125,25 +143,29 @@ async def asyncio_detailed(
 
     Returns:
         Response[Guild]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         guild_id=guild_id,
-        body=body,
+body=body,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     guild_id: str,
     *,
     client: AuthenticatedClient,
     body: CreateGuildMember,
+
 ) -> Optional[Guild]:
-    """
+    """ 
     Args:
         guild_id (str):
         body (CreateGuildMember):
@@ -154,12 +176,12 @@ async def asyncio(
 
     Returns:
         Guild
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            guild_id=guild_id,
-            client=client,
-            body=body,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        guild_id=guild_id,
+client=client,
+body=body,
+
+    )).parsed

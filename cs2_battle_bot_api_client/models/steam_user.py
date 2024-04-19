@@ -1,28 +1,41 @@
-import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
+
+from typing import Union
+from typing import cast
+import datetime
+from dateutil.parser import isoparse
+from typing import cast, Union
+from ..types import UNSET, Unset
+
+
+
+
+
 
 T = TypeVar("T", bound="SteamUser")
 
 
 @_attrs_define
 class SteamUser:
-    """
-    Attributes:
-        id (str):
-        username (str):
-        created_at (datetime.datetime):
-        updated_at (datetime.datetime):
-        steamid64 (Union[None, Unset, str]):
-        steamid32 (Union[None, Unset, str]):
-        profile_url (Union[None, Unset, str]):
-        avatar (Union[None, Unset, str]):
-    """
+    """ 
+        Attributes:
+            id (str):
+            username (str):
+            created_at (datetime.datetime):
+            updated_at (datetime.datetime):
+            steamid64 (Union[None, Unset, str]):
+            steamid32 (Union[None, Unset, str]):
+            profile_url (Union[None, Unset, str]):
+            avatar (Union[None, Unset, str]):
+     """
 
     id: str
     username: str
@@ -33,6 +46,7 @@ class SteamUser:
     profile_url: Union[None, Unset, str] = UNSET
     avatar: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+
 
     def to_dict(self) -> Dict[str, Any]:
         id = self.id
@@ -67,16 +81,15 @@ class SteamUser:
         else:
             avatar = self.avatar
 
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "id": id,
-                "username": username,
-                "created_at": created_at,
-                "updated_at": updated_at,
-            }
-        )
+        field_dict.update({
+            "id": id,
+            "username": username,
+            "created_at": created_at,
+            "updated_at": updated_at,
+        })
         if steamid64 is not UNSET:
             field_dict["steamid64"] = steamid64
         if steamid32 is not UNSET:
@@ -88,6 +101,8 @@ class SteamUser:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
@@ -97,7 +112,13 @@ class SteamUser:
 
         created_at = isoparse(d.pop("created_at"))
 
+
+
+
         updated_at = isoparse(d.pop("updated_at"))
+
+
+
 
         def _parse_steamid64(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -108,6 +129,7 @@ class SteamUser:
 
         steamid64 = _parse_steamid64(d.pop("steamid64", UNSET))
 
+
         def _parse_steamid32(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -116,6 +138,7 @@ class SteamUser:
             return cast(Union[None, Unset, str], data)
 
         steamid32 = _parse_steamid32(d.pop("steamid32", UNSET))
+
 
         def _parse_profile_url(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -126,6 +149,7 @@ class SteamUser:
 
         profile_url = _parse_profile_url(d.pop("profile_url", UNSET))
 
+
         def _parse_avatar(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -134,6 +158,7 @@ class SteamUser:
             return cast(Union[None, Unset, str], data)
 
         avatar = _parse_avatar(d.pop("avatar", UNSET))
+
 
         steam_user = cls(
             id=id,

@@ -1,38 +1,51 @@
-from typing import Any, Dict, List, Type, TypeVar
+from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+
+from ..types import UNSET, Unset
+
+
+
+
+
+
 
 T = TypeVar("T", bound="MatchPickMap")
 
 
 @_attrs_define
 class MatchPickMap:
-    """
-    Attributes:
-        interaction_user_id (str):
-        map_tag (str):
-    """
+    """ 
+        Attributes:
+            interaction_user_id (str):
+            map_tag (str):
+     """
 
     interaction_user_id: str
     map_tag: str
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+
 
     def to_dict(self) -> Dict[str, Any]:
         interaction_user_id = self.interaction_user_id
 
         map_tag = self.map_tag
 
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "interaction_user_id": interaction_user_id,
-                "map_tag": map_tag,
-            }
-        )
+        field_dict.update({
+            "interaction_user_id": interaction_user_id,
+            "map_tag": map_tag,
+        })
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:

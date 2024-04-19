@@ -1,30 +1,44 @@
-import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
+
+from typing import Union
+from typing import cast
+import datetime
+from dateutil.parser import isoparse
+from typing import cast, List
+from typing import cast, Union
+from ..types import UNSET, Unset
+
+
+
+
+
 
 T = TypeVar("T", bound="Guild")
 
 
 @_attrs_define
 class Guild:
-    """
-    Attributes:
-        id (str):
-        name (str):
-        guild_id (str):
-        created_at (datetime.datetime):
-        updated_at (datetime.datetime):
-        owner (str):
-        members (List[str]):
-        lobby_channel (Union[None, Unset, str]):
-        team1_channel (Union[None, Unset, str]):
-        team2_channel (Union[None, Unset, str]):
-    """
+    """ 
+        Attributes:
+            id (str):
+            name (str):
+            guild_id (str):
+            created_at (datetime.datetime):
+            updated_at (datetime.datetime):
+            owner (str):
+            members (List[str]):
+            lobby_channel (Union[None, Unset, str]):
+            team1_channel (Union[None, Unset, str]):
+            team2_channel (Union[None, Unset, str]):
+     """
 
     id: str
     name: str
@@ -37,6 +51,7 @@ class Guild:
     team1_channel: Union[None, Unset, str] = UNSET
     team2_channel: Union[None, Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+
 
     def to_dict(self) -> Dict[str, Any]:
         id = self.id
@@ -52,6 +67,10 @@ class Guild:
         owner = self.owner
 
         members = self.members
+
+
+
+
 
         lobby_channel: Union[None, Unset, str]
         if isinstance(self.lobby_channel, Unset):
@@ -71,19 +90,18 @@ class Guild:
         else:
             team2_channel = self.team2_channel
 
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "id": id,
-                "name": name,
-                "guild_id": guild_id,
-                "created_at": created_at,
-                "updated_at": updated_at,
-                "owner": owner,
-                "members": members,
-            }
-        )
+        field_dict.update({
+            "id": id,
+            "name": name,
+            "guild_id": guild_id,
+            "created_at": created_at,
+            "updated_at": updated_at,
+            "owner": owner,
+            "members": members,
+        })
         if lobby_channel is not UNSET:
             field_dict["lobby_channel"] = lobby_channel
         if team1_channel is not UNSET:
@@ -92,6 +110,8 @@ class Guild:
             field_dict["team2_channel"] = team2_channel
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
@@ -104,11 +124,18 @@ class Guild:
 
         created_at = isoparse(d.pop("created_at"))
 
+
+
+
         updated_at = isoparse(d.pop("updated_at"))
+
+
+
 
         owner = d.pop("owner")
 
         members = cast(List[str], d.pop("members"))
+
 
         def _parse_lobby_channel(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -119,6 +146,7 @@ class Guild:
 
         lobby_channel = _parse_lobby_channel(d.pop("lobby_channel", UNSET))
 
+
         def _parse_team1_channel(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -128,6 +156,7 @@ class Guild:
 
         team1_channel = _parse_team1_channel(d.pop("team1_channel", UNSET))
 
+
         def _parse_team2_channel(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -136,6 +165,7 @@ class Guild:
             return cast(Union[None, Unset, str], data)
 
         team2_channel = _parse_team2_channel(d.pop("team2_channel", UNSET))
+
 
         guild = cls(
             id=id,

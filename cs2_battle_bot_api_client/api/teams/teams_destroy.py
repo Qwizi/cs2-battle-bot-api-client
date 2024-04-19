@@ -1,20 +1,30 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...types import Response
+from ...types import Response, UNSET
+from ... import errors
+
+
 
 
 def _get_kwargs(
     id: str,
+
 ) -> Dict[str, Any]:
+    
+
+    
+
+    
+
     _kwargs: Dict[str, Any] = {
         "method": "delete",
-        "url": f"/api/teams/{id}/",
+        "url": "/api/teams/{id}/".format(id=id,),
     }
+
 
     return _kwargs
 
@@ -41,8 +51,9 @@ def sync_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
+
 ) -> Response[Any]:
-    """
+    """ 
     Args:
         id (str):
 
@@ -52,10 +63,12 @@ def sync_detailed(
 
     Returns:
         Response[Any]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         id=id,
+
     )
 
     response = client.get_httpx_client().request(
@@ -69,8 +82,9 @@ async def asyncio_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
+
 ) -> Response[Any]:
-    """
+    """ 
     Args:
         id (str):
 
@@ -80,12 +94,17 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         id=id,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
+
