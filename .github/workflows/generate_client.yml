@@ -30,6 +30,7 @@ jobs:
                     curl -LJO https://raw.githubusercontent.com/Qwizi/cs2-battle-bot-api/feature/src/openapi.json
                     VERSION=$(jq -r .info.version openapi.json)
                     sed -i "s/version = \".*\"/version = \"$VERSION\"/" pyproject.toml
+                    echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
                     echo "Updated version to $VERSION"
             -   name: Generate Python client
                 run: |
@@ -43,3 +44,8 @@ jobs:
                     git add .
                     git commit -m "Update client to version $VERSION"
                     git push
+            -   name: Release New Version
+                uses: softprops/action-gh-release@v1
+                with:
+                    name: v${{ env.RELEASE_VERSION }}
+                    tag_name: v${{ env.RELEASE_VERSION }}
