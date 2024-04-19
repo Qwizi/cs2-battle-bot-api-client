@@ -1,0 +1,24 @@
+name: Generate Client
+
+on:
+    workflow_dispatch:
+
+jobs:
+    generate-client:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Checkout repository
+                uses: actions/checkout@v4
+#            -   name: Download OpenAPI schema
+#                run: "curl -LJO https://raw.githubusercontent.com/Qwizi/cs2-battle-bot-api/feature/src/openapi.json"
+
+            -   name: Install OpenAPI Python Generator
+                run: "pipx install openapi-python-client"
+            -   name: Set up Python ${{matrix.python-version}}
+                uses: "actions/setup-python@v5"
+                with:
+                    python-version: 3.11
+                    cache: poetry
+            -   name: Generate Python client
+                run: "cd .. && openapi-python-client update --url https://raw.githubusercontent.com/Qwizi/cs2-battle-bot-api/feature/src/openapi.json && echo ls"
