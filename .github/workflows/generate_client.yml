@@ -51,6 +51,7 @@ jobs:
                 with:
                     name: v${{ env.RELEASE_VERSION }}
                     tag_name: v${{ env.RELEASE_VERSION }}
+                    token: ${{ secrets.RELEASE_GIT_TOKEN }}
             -   name: Discord notification
                 env:
                     DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
