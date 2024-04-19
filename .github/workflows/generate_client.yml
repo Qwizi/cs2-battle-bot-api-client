@@ -10,8 +10,6 @@ jobs:
         steps:
             -   name: Checkout repository
                 uses: actions/checkout@v4
-#            -   name: Download OpenAPI schema
-#                run: "curl -LJO https://raw.githubusercontent.com/Qwizi/cs2-battle-bot-api/feature/src/openapi.json"
             -   name: "Install Poetry"
                 run: "pipx install poetry"
             -   name: Install OpenAPI Python Generator
@@ -21,5 +19,15 @@ jobs:
                 with:
                     python-version: 3.11
                     cache: poetry
+            -   name: Install jq
+                run: |
+                    sudo apt-get update
+                    sudo apt-get install -y jq
+            -   name: Download OpenAPI schema and update pyproject.toml
+                run: |
+                    curl -LJO https://raw.githubusercontent.com/Qwizi/cs2-battle-bot-api/feature/src/openapi.json
+                    VERSION=$(jq -r .info.version openapi.json)
+                    sed -i "s/version = \".*\"/version = \"$VERSION\"/" pyproject.toml
+                    echo "Updated version to $VERSION"
             -   name: Generate Python client
-                run: "cd .. && openapi-python-client update --url https://raw.githubusercontent.com/Qwizi/cs2-battle-bot-api/feature/src/openapi.json && echo ls"
+                run: "cd .. && openapi-python-client update --path cs2-battle-bot-api-client/openapi.json && echo ls"
