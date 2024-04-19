@@ -2,6 +2,8 @@ name: Generate Client
 
 on:
     workflow_dispatch:
+    repository_dispatch:
+        types: [ generate-client ]
 
 jobs:
     generate-client:
@@ -42,10 +44,16 @@ jobs:
                     git config --global user.email "github@actions.com"
                     git config --global user.name "GitHub Actions"
                     git add .
-                    git commit -m "Update client to version $VERSION"
+                    git commit -m "Update client to version ${{ env.RELEASE_VERSION }}"
                     git push
             -   name: Release New Version
                 uses: softprops/action-gh-release@v1
                 with:
                     name: v${{ env.RELEASE_VERSION }}
                     tag_name: v${{ env.RELEASE_VERSION }}
+            -   name: Discord notification
+                env:
+                    DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+                uses: Ilshidur/action-discord@master
+                with:
+                    args: '{{ EVENT_PAYLOAD.repository.full_name }} successfully generated and published a new client version {{ env.RELEASE_VERSION }}.'
