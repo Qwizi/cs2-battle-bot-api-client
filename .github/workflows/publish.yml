@@ -14,6 +14,6 @@ jobs:
             -   name: Discord notification
                 env:
                     DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-                    uses: Ilshidur/action-discord@master
-                    with:
-                        args: '{{ EVENT_PAYLOAD.repository.full_name }} successfully build and published a new version ${{ github.event.release.tag }}. Check it out -> {{ EVENT_PAYLOAD.release.html_url }}'
+                uses: Ilshidur/action-discord@master
+                with:
+                    args: '{{ EVENT_PAYLOAD.repository.full_name }} successfully published a new version ${{ github.event.release.tag_name }}. Check it out -> {{ EVENT_PAYLOAD.release.html_url }}'
