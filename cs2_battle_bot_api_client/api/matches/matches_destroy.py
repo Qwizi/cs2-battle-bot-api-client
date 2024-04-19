@@ -1,30 +1,20 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-
+from ...client import AuthenticatedClient, Client
+from ...types import Response
 
 
 def _get_kwargs(
     id: int,
-
 ) -> Dict[str, Any]:
-    
-
-    
-
-    
-
     _kwargs: Dict[str, Any] = {
         "method": "delete",
-        "url": "/api/matches/{id}/".format(id=id,),
+        "url": f"/api/matches/{id}/",
     }
-
 
     return _kwargs
 
@@ -51,9 +41,8 @@ def sync_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-
 ) -> Response[Any]:
-    """ 
+    """
     Args:
         id (int):
 
@@ -63,12 +52,10 @@ def sync_detailed(
 
     Returns:
         Response[Any]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-
     )
 
     response = client.get_httpx_client().request(
@@ -82,9 +69,8 @@ async def asyncio_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-
 ) -> Response[Any]:
-    """ 
+    """
     Args:
         id (int):
 
@@ -94,17 +80,12 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
-

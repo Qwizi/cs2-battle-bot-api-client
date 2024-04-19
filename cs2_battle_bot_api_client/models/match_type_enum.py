@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class MatchTypeEnum(str, Enum):
     BO1 = "BO1"
     BO3 = "BO3"

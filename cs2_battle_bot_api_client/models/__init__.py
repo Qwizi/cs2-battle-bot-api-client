@@ -1,4 +1,4 @@
-""" Contains all the data models used in inputs/outputs """
+"""Contains all the data models used in inputs/outputs"""
 
 from .create_guild import CreateGuild
 from .create_guild_member import CreateGuildMember

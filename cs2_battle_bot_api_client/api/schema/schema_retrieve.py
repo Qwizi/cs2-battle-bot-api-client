@@ -1,30 +1,19 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from typing import Dict
-from typing import Union
-from ...types import UNSET, Unset
+from ...client import AuthenticatedClient, Client
 from ...models.schema_retrieve_lang import SchemaRetrieveLang
-from typing import cast
 from ...models.schema_retrieve_response_200 import SchemaRetrieveResponse200
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
     lang: Union[Unset, SchemaRetrieveLang] = UNSET,
-
 ) -> Dict[str, Any]:
-    
-
-    
-
     params: Dict[str, Any] = {}
 
     json_lang: Union[Unset, str] = UNSET
@@ -33,9 +22,7 @@ def _get_kwargs(
 
     params["lang"] = json_lang
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: Dict[str, Any] = {
         "method": "get",
@@ -43,15 +30,14 @@ def _get_kwargs(
         "params": params,
     }
 
-
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[SchemaRetrieveResponse200]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[SchemaRetrieveResponse200]:
     if response.status_code == HTTPStatus.OK:
         response_200 = SchemaRetrieveResponse200.from_dict(response.json())
-
-
 
         return response_200
     if client.raise_on_unexpected_status:
@@ -60,7 +46,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[SchemaRetrieveResponse200]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[SchemaRetrieveResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -73,9 +61,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     lang: Union[Unset, SchemaRetrieveLang] = UNSET,
-
 ) -> Response[SchemaRetrieveResponse200]:
-    """  OpenApi3 schema for this API. Format can be selected via content negotiation.
+    """OpenApi3 schema for this API. Format can be selected via content negotiation.
 
     - YAML: application/vnd.oai.openapi
     - JSON: application/vnd.oai.openapi+json
@@ -89,12 +76,10 @@ def sync_detailed(
 
     Returns:
         Response[SchemaRetrieveResponse200]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         lang=lang,
-
     )
 
     response = client.get_httpx_client().request(
@@ -103,13 +88,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient,
     lang: Union[Unset, SchemaRetrieveLang] = UNSET,
-
 ) -> Optional[SchemaRetrieveResponse200]:
-    """  OpenApi3 schema for this API. Format can be selected via content negotiation.
+    """OpenApi3 schema for this API. Format can be selected via content negotiation.
 
     - YAML: application/vnd.oai.openapi
     - JSON: application/vnd.oai.openapi+json
@@ -123,22 +108,20 @@ def sync(
 
     Returns:
         SchemaRetrieveResponse200
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-lang=lang,
-
+        lang=lang,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     lang: Union[Unset, SchemaRetrieveLang] = UNSET,
-
 ) -> Response[SchemaRetrieveResponse200]:
-    """  OpenApi3 schema for this API. Format can be selected via content negotiation.
+    """OpenApi3 schema for this API. Format can be selected via content negotiation.
 
     - YAML: application/vnd.oai.openapi
     - JSON: application/vnd.oai.openapi+json
@@ -152,27 +135,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[SchemaRetrieveResponse200]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         lang=lang,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient,
     lang: Union[Unset, SchemaRetrieveLang] = UNSET,
-
 ) -> Optional[SchemaRetrieveResponse200]:
-    """  OpenApi3 schema for this API. Format can be selected via content negotiation.
+    """OpenApi3 schema for this API. Format can be selected via content negotiation.
 
     - YAML: application/vnd.oai.openapi
     - JSON: application/vnd.oai.openapi+json
@@ -186,11 +165,11 @@ async def asyncio(
 
     Returns:
         SchemaRetrieveResponse200
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-lang=lang,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            lang=lang,
+        )
+    ).parsed

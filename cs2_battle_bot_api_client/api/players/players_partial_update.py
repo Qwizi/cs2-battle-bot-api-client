@@ -1,39 +1,28 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from ...models.player import Player
-from typing import cast
+from ...client import AuthenticatedClient, Client
 from ...models.patched_player import PatchedPlayer
-from typing import Dict
-
+from ...models.player import Player
+from ...types import Response
 
 
 def _get_kwargs(
     id: str,
     *,
     body: PatchedPlayer,
-
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
-
-    
-
-    
-
     _kwargs: Dict[str, Any] = {
         "method": "patch",
-        "url": "/api/players/{id}/".format(id=id,),
+        "url": f"/api/players/{id}/",
     }
 
     _body = body.to_dict()
-
 
     _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
@@ -45,8 +34,6 @@ def _get_kwargs(
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Player]:
     if response.status_code == HTTPStatus.OK:
         response_200 = Player.from_dict(response.json())
-
-
 
         return response_200
     if client.raise_on_unexpected_status:
@@ -69,9 +56,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: PatchedPlayer,
-
 ) -> Response[Player]:
-    """ 
+    """
     Args:
         id (str):
         body (PatchedPlayer):
@@ -82,13 +68,11 @@ def sync_detailed(
 
     Returns:
         Response[Player]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-body=body,
-
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -97,14 +81,14 @@ body=body,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     id: str,
     *,
     client: AuthenticatedClient,
     body: PatchedPlayer,
-
 ) -> Optional[Player]:
-    """ 
+    """
     Args:
         id (str):
         body (PatchedPlayer):
@@ -115,24 +99,22 @@ def sync(
 
     Returns:
         Player
-     """
-
+    """
 
     return sync_detailed(
         id=id,
-client=client,
-body=body,
-
+        client=client,
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
     body: PatchedPlayer,
-
 ) -> Response[Player]:
-    """ 
+    """
     Args:
         id (str):
         body (PatchedPlayer):
@@ -143,29 +125,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[Player]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-body=body,
-
+        body=body,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     id: str,
     *,
     client: AuthenticatedClient,
     body: PatchedPlayer,
-
 ) -> Optional[Player]:
-    """ 
+    """
     Args:
         id (str):
         body (PatchedPlayer):
@@ -176,12 +154,12 @@ async def asyncio(
 
     Returns:
         Player
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        id=id,
-client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            id=id,
+            client=client,
+            body=body,
+        )
+    ).parsed

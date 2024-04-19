@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class SchemaRetrieveLang(str, Enum):
     AF = "af"
     AR = "ar"

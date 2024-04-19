@@ -1,44 +1,30 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
-
-from typing import Union
-from typing import cast
 from dateutil.parser import isoparse
-import datetime
-from typing import cast, List
-from typing import cast, Union
+
 from ..types import UNSET, Unset
-
-
-
-
-
 
 T = TypeVar("T", bound="PatchedGuild")
 
 
 @_attrs_define
 class PatchedGuild:
-    """ 
-        Attributes:
-            id (Union[Unset, str]):
-            name (Union[Unset, str]):
-            guild_id (Union[Unset, str]):
-            lobby_channel (Union[None, Unset, str]):
-            team1_channel (Union[None, Unset, str]):
-            team2_channel (Union[None, Unset, str]):
-            created_at (Union[Unset, datetime.datetime]):
-            updated_at (Union[Unset, datetime.datetime]):
-            owner (Union[Unset, str]):
-            members (Union[Unset, List[str]]):
-     """
+    """
+    Attributes:
+        id (Union[Unset, str]):
+        name (Union[Unset, str]):
+        guild_id (Union[Unset, str]):
+        lobby_channel (Union[None, Unset, str]):
+        team1_channel (Union[None, Unset, str]):
+        team2_channel (Union[None, Unset, str]):
+        created_at (Union[Unset, datetime.datetime]):
+        updated_at (Union[Unset, datetime.datetime]):
+        owner (Union[Unset, str]):
+        members (Union[Unset, List[str]]):
+    """
 
     id: Union[Unset, str] = UNSET
     name: Union[Unset, str] = UNSET
@@ -51,7 +37,6 @@ class PatchedGuild:
     owner: Union[Unset, str] = UNSET
     members: Union[Unset, List[str]] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         id = self.id
@@ -92,15 +77,9 @@ class PatchedGuild:
         if not isinstance(self.members, Unset):
             members = self.members
 
-
-
-
-
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if id is not UNSET:
             field_dict["id"] = id
         if name is not UNSET:
@@ -124,8 +103,6 @@ class PatchedGuild:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
@@ -144,7 +121,6 @@ class PatchedGuild:
 
         lobby_channel = _parse_lobby_channel(d.pop("lobby_channel", UNSET))
 
-
         def _parse_team1_channel(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
@@ -153,7 +129,6 @@ class PatchedGuild:
             return cast(Union[None, Unset, str], data)
 
         team1_channel = _parse_team1_channel(d.pop("team1_channel", UNSET))
-
 
         def _parse_team2_channel(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -164,31 +139,23 @@ class PatchedGuild:
 
         team2_channel = _parse_team2_channel(d.pop("team2_channel", UNSET))
 
-
         _created_at = d.pop("created_at", UNSET)
         created_at: Union[Unset, datetime.datetime]
-        if isinstance(_created_at,  Unset):
+        if isinstance(_created_at, Unset):
             created_at = UNSET
         else:
             created_at = isoparse(_created_at)
 
-
-
-
         _updated_at = d.pop("updated_at", UNSET)
         updated_at: Union[Unset, datetime.datetime]
-        if isinstance(_updated_at,  Unset):
+        if isinstance(_updated_at, Unset):
             updated_at = UNSET
         else:
             updated_at = isoparse(_updated_at)
 
-
-
-
         owner = d.pop("owner", UNSET)
 
         members = cast(List[str], d.pop("members", UNSET))
-
 
         patched_guild = cls(
             id=id,

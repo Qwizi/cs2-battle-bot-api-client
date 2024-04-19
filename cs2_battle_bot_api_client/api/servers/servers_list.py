@@ -1,18 +1,12 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from typing import Dict
-from typing import Union
-from ...types import UNSET, Unset
-from typing import cast
+from ...client import AuthenticatedClient, Client
 from ...models.paginated_server_list import PaginatedServerList
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -20,12 +14,7 @@ def _get_kwargs(
     guild: Union[Unset, str] = UNSET,
     is_public: Union[Unset, bool] = UNSET,
     page: Union[Unset, int] = UNSET,
-
 ) -> Dict[str, Any]:
-    
-
-    
-
     params: Dict[str, Any] = {}
 
     params["guild"] = guild
@@ -34,9 +23,7 @@ def _get_kwargs(
 
     params["page"] = page
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: Dict[str, Any] = {
         "method": "get",
@@ -44,15 +31,14 @@ def _get_kwargs(
         "params": params,
     }
 
-
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[PaginatedServerList]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[PaginatedServerList]:
     if response.status_code == HTTPStatus.OK:
         response_200 = PaginatedServerList.from_dict(response.json())
-
-
 
         return response_200
     if client.raise_on_unexpected_status:
@@ -61,7 +47,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[PaginatedServerList]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[PaginatedServerList]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -76,9 +64,8 @@ def sync_detailed(
     guild: Union[Unset, str] = UNSET,
     is_public: Union[Unset, bool] = UNSET,
     page: Union[Unset, int] = UNSET,
-
 ) -> Response[PaginatedServerList]:
-    """ 
+    """
     Args:
         guild (Union[Unset, str]):
         is_public (Union[Unset, bool]):
@@ -90,14 +77,12 @@ def sync_detailed(
 
     Returns:
         Response[PaginatedServerList]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         guild=guild,
-is_public=is_public,
-page=page,
-
+        is_public=is_public,
+        page=page,
     )
 
     response = client.get_httpx_client().request(
@@ -106,15 +91,15 @@ page=page,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient,
     guild: Union[Unset, str] = UNSET,
     is_public: Union[Unset, bool] = UNSET,
     page: Union[Unset, int] = UNSET,
-
 ) -> Optional[PaginatedServerList]:
-    """ 
+    """
     Args:
         guild (Union[Unset, str]):
         is_public (Union[Unset, bool]):
@@ -126,16 +111,15 @@ def sync(
 
     Returns:
         PaginatedServerList
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-guild=guild,
-is_public=is_public,
-page=page,
-
+        guild=guild,
+        is_public=is_public,
+        page=page,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
@@ -143,9 +127,8 @@ async def asyncio_detailed(
     guild: Union[Unset, str] = UNSET,
     is_public: Union[Unset, bool] = UNSET,
     page: Union[Unset, int] = UNSET,
-
 ) -> Response[PaginatedServerList]:
-    """ 
+    """
     Args:
         guild (Union[Unset, str]):
         is_public (Union[Unset, bool]):
@@ -157,21 +140,18 @@ async def asyncio_detailed(
 
     Returns:
         Response[PaginatedServerList]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         guild=guild,
-is_public=is_public,
-page=page,
-
+        is_public=is_public,
+        page=page,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
@@ -179,9 +159,8 @@ async def asyncio(
     guild: Union[Unset, str] = UNSET,
     is_public: Union[Unset, bool] = UNSET,
     page: Union[Unset, int] = UNSET,
-
 ) -> Optional[PaginatedServerList]:
-    """ 
+    """
     Args:
         guild (Union[Unset, str]):
         is_public (Union[Unset, bool]):
@@ -193,13 +172,13 @@ async def asyncio(
 
     Returns:
         PaginatedServerList
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-guild=guild,
-is_public=is_public,
-page=page,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            guild=guild,
+            is_public=is_public,
+            page=page,
+        )
+    ).parsed
