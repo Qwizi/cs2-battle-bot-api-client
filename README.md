@@ -1,5 +1,12 @@
 # cs2-battle-bot-api-client
+
+[![Python package](https://github.com/Qwizi/cs2-battle-bot-api-client/actions/workflows/publish.yml/badge.svg)](https://github.com/Qwizi/cs2-battle-bot-api-client/actions/workflows/publish.yml)
+[![Generate Client](https://github.com/Qwizi/cs2-battle-bot-api-client/actions/workflows/generate_client.yml/badge.svg)](https://github.com/Qwizi/cs2-battle-bot-api-client/actions/workflows/generate_client.yml)
+
+
+
 A client library for accessing cs2-battle-bot-api
+
 
 ## Usage
 First, create a client:
