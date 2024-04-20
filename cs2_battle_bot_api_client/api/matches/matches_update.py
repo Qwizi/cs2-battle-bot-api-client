@@ -6,13 +6,14 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.match import Match
+from ...models.match_update import MatchUpdate
 from ...types import Response
 
 
 def _get_kwargs(
     id: int,
     *,
-    body: Match,
+    body: MatchUpdate,
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
@@ -54,12 +55,12 @@ def sync_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: Match,
+    body: MatchUpdate,
 ) -> Response[Match]:
     """
     Args:
         id (int):
-        body (Match):
+        body (MatchUpdate):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -85,12 +86,12 @@ def sync(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: Match,
+    body: MatchUpdate,
 ) -> Optional[Match]:
     """
     Args:
         id (int):
-        body (Match):
+        body (MatchUpdate):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -111,12 +112,12 @@ async def asyncio_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: Match,
+    body: MatchUpdate,
 ) -> Response[Match]:
     """
     Args:
         id (int):
-        body (Match):
+        body (MatchUpdate):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -140,12 +141,12 @@ async def asyncio(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: Match,
+    body: MatchUpdate,
 ) -> Optional[Match]:
     """
     Args:
         id (int):
-        body (Match):
+        body (MatchUpdate):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

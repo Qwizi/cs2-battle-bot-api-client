@@ -6,13 +6,14 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.guild import Guild
+from ...models.update_guild import UpdateGuild
 from ...types import Response
 
 
 def _get_kwargs(
     guild_id: str,
     *,
-    body: Guild,
+    body: UpdateGuild,
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
@@ -54,12 +55,12 @@ def sync_detailed(
     guild_id: str,
     *,
     client: AuthenticatedClient,
-    body: Guild,
+    body: UpdateGuild,
 ) -> Response[Guild]:
     """
     Args:
         guild_id (str):
-        body (Guild):
+        body (UpdateGuild):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -85,12 +86,12 @@ def sync(
     guild_id: str,
     *,
     client: AuthenticatedClient,
-    body: Guild,
+    body: UpdateGuild,
 ) -> Optional[Guild]:
     """
     Args:
         guild_id (str):
-        body (Guild):
+        body (UpdateGuild):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -111,12 +112,12 @@ async def asyncio_detailed(
     guild_id: str,
     *,
     client: AuthenticatedClient,
-    body: Guild,
+    body: UpdateGuild,
 ) -> Response[Guild]:
     """
     Args:
         guild_id (str):
-        body (Guild):
+        body (UpdateGuild):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -140,12 +141,12 @@ async def asyncio(
     guild_id: str,
     *,
     client: AuthenticatedClient,
-    body: Guild,
+    body: UpdateGuild,
 ) -> Optional[Guild]:
     """
     Args:
         guild_id (str):
-        body (Guild):
+        body (UpdateGuild):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

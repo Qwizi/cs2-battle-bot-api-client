@@ -21,6 +21,8 @@ from .match_map_selected import MatchMapSelected
 from .match_pick_map import MatchPickMap
 from .match_pick_map_result import MatchPickMapResult
 from .match_type_enum import MatchTypeEnum
+from .match_update import MatchUpdate
+from .match_update_cvars import MatchUpdateCvars
 from .paginated_discord_user_list import PaginatedDiscordUserList
 from .paginated_guild_list import PaginatedGuildList
 from .paginated_map_ban_list import PaginatedMapBanList
@@ -46,6 +48,7 @@ from .status_enum import StatusEnum
 from .steam_user import SteamUser
 from .team import Team
 from .type_enum import TypeEnum
+from .update_guild import UpdateGuild
 
 __all__ = (
     "CreateGuild",
@@ -69,6 +72,8 @@ __all__ = (
     "MatchPickMap",
     "MatchPickMapResult",
     "MatchTypeEnum",
+    "MatchUpdate",
+    "MatchUpdateCvars",
     "PaginatedDiscordUserList",
     "PaginatedGuildList",
     "PaginatedMapBanList",
@@ -94,4 +99,5 @@ __all__ = (
     "SteamUser",
     "Team",
     "TypeEnum",
+    "UpdateGuild",
 )
