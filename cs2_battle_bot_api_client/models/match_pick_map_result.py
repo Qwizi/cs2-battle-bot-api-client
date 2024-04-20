@@ -1,7 +1,12 @@
-from typing import Any, Dict, List, Type, TypeVar, cast
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+
+if TYPE_CHECKING:
+    from ..models.map_ import Map
+    from ..models.team import Team
+
 
 T = TypeVar("T", bound="MatchPickMapResult")
 
@@ -10,22 +15,22 @@ T = TypeVar("T", bound="MatchPickMapResult")
 class MatchPickMapResult:
     """
     Attributes:
-        picked_map (str):
-        next_pick_team_leader (str):
+        picked_map (Map):
+        next_pick_team (Team):
         maps_left (List[str]):
         map_picks_count (int):
     """
 
-    picked_map: str
-    next_pick_team_leader: str
+    picked_map: "Map"
+    next_pick_team: "Team"
     maps_left: List[str]
     map_picks_count: int
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        picked_map = self.picked_map
+        picked_map = self.picked_map.to_dict()
 
-        next_pick_team_leader = self.next_pick_team_leader
+        next_pick_team = self.next_pick_team.to_dict()
 
         maps_left = self.maps_left
 
@@ -36,7 +41,7 @@ class MatchPickMapResult:
         field_dict.update(
             {
                 "picked_map": picked_map,
-                "next_pick_team_leader": next_pick_team_leader,
+                "next_pick_team": next_pick_team,
                 "maps_left": maps_left,
                 "map_picks_count": map_picks_count,
             }
@@ -46,10 +51,13 @@ class MatchPickMapResult:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
-        picked_map = d.pop("picked_map")
+        from ..models.map_ import Map
+        from ..models.team import Team
 
-        next_pick_team_leader = d.pop("next_pick_team_leader")
+        d = src_dict.copy()
+        picked_map = Map.from_dict(d.pop("picked_map"))
+
+        next_pick_team = Team.from_dict(d.pop("next_pick_team"))
 
         maps_left = cast(List[str], d.pop("maps_left"))
 
@@ -57,7 +65,7 @@ class MatchPickMapResult:
 
         match_pick_map_result = cls(
             picked_map=picked_map,
-            next_pick_team_leader=next_pick_team_leader,
+            next_pick_team=next_pick_team,
             maps_left=maps_left,
             map_picks_count=map_picks_count,
         )

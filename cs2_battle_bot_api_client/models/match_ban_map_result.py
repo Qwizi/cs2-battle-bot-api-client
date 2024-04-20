@@ -1,7 +1,12 @@
-from typing import Any, Dict, List, Type, TypeVar, cast
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+
+if TYPE_CHECKING:
+    from ..models.map_ import Map
+    from ..models.team import Team
+
 
 T = TypeVar("T", bound="MatchBanMapResult")
 
@@ -10,22 +15,22 @@ T = TypeVar("T", bound="MatchBanMapResult")
 class MatchBanMapResult:
     """
     Attributes:
-        banned_map (str):
-        next_ban_team_leader (str):
+        banned_map (Map):
+        next_ban_team (Team):
         maps_left (List[str]):
         map_bans_count (int):
     """
 
-    banned_map: str
-    next_ban_team_leader: str
+    banned_map: "Map"
+    next_ban_team: "Team"
     maps_left: List[str]
     map_bans_count: int
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        banned_map = self.banned_map
+        banned_map = self.banned_map.to_dict()
 
-        next_ban_team_leader = self.next_ban_team_leader
+        next_ban_team = self.next_ban_team.to_dict()
 
         maps_left = self.maps_left
 
@@ -36,7 +41,7 @@ class MatchBanMapResult:
         field_dict.update(
             {
                 "banned_map": banned_map,
-                "next_ban_team_leader": next_ban_team_leader,
+                "next_ban_team": next_ban_team,
                 "maps_left": maps_left,
                 "map_bans_count": map_bans_count,
             }
@@ -46,10 +51,13 @@ class MatchBanMapResult:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
-        banned_map = d.pop("banned_map")
+        from ..models.map_ import Map
+        from ..models.team import Team
 
-        next_ban_team_leader = d.pop("next_ban_team_leader")
+        d = src_dict.copy()
+        banned_map = Map.from_dict(d.pop("banned_map"))
+
+        next_ban_team = Team.from_dict(d.pop("next_ban_team"))
 
         maps_left = cast(List[str], d.pop("maps_left"))
 
@@ -57,7 +65,7 @@ class MatchBanMapResult:
 
         match_ban_map_result = cls(
             banned_map=banned_map,
-            next_ban_team_leader=next_ban_team_leader,
+            next_ban_team=next_ban_team,
             maps_left=maps_left,
             map_bans_count=map_bans_count,
         )
