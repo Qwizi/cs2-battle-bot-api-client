@@ -1,5 +1,5 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,24 +19,30 @@ class Player:
     Attributes:
         id (str):
         discord_user (DiscordUser):
-        steam_user (SteamUser):
+        steam_user (Union['SteamUser', None]):
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
     """
 
     id: str
     discord_user: "DiscordUser"
-    steam_user: "SteamUser"
+    steam_user: Union["SteamUser", None]
     created_at: datetime.datetime
     updated_at: datetime.datetime
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        from ..models.steam_user import SteamUser
+
         id = self.id
 
         discord_user = self.discord_user.to_dict()
 
-        steam_user = self.steam_user.to_dict()
+        steam_user: Union[Dict[str, Any], None]
+        if isinstance(self.steam_user, SteamUser):
+            steam_user = self.steam_user.to_dict()
+        else:
+            steam_user = self.steam_user
 
         created_at = self.created_at.isoformat()
 
@@ -66,7 +72,20 @@ class Player:
 
         discord_user = DiscordUser.from_dict(d.pop("discord_user"))
 
-        steam_user = SteamUser.from_dict(d.pop("steam_user"))
+        def _parse_steam_user(data: object) -> Union["SteamUser", None]:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                steam_user_type_1 = SteamUser.from_dict(data)
+
+                return steam_user_type_1
+            except:  # noqa: E722
+                pass
+            return cast(Union["SteamUser", None], data)
+
+        steam_user = _parse_steam_user(d.pop("steam_user"))
 
         created_at = isoparse(d.pop("created_at"))
 

@@ -1,5 +1,5 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,28 +21,34 @@ class PatchedPlayer:
     Attributes:
         id (Union[Unset, str]):
         discord_user (Union[Unset, DiscordUser]):
-        steam_user (Union[Unset, SteamUser]):
+        steam_user (Union['SteamUser', None, Unset]):
         created_at (Union[Unset, datetime.datetime]):
         updated_at (Union[Unset, datetime.datetime]):
     """
 
     id: Union[Unset, str] = UNSET
     discord_user: Union[Unset, "DiscordUser"] = UNSET
-    steam_user: Union[Unset, "SteamUser"] = UNSET
+    steam_user: Union["SteamUser", None, Unset] = UNSET
     created_at: Union[Unset, datetime.datetime] = UNSET
     updated_at: Union[Unset, datetime.datetime] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        from ..models.steam_user import SteamUser
+
         id = self.id
 
         discord_user: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.discord_user, Unset):
             discord_user = self.discord_user.to_dict()
 
-        steam_user: Union[Unset, Dict[str, Any]] = UNSET
-        if not isinstance(self.steam_user, Unset):
+        steam_user: Union[Dict[str, Any], None, Unset]
+        if isinstance(self.steam_user, Unset):
+            steam_user = UNSET
+        elif isinstance(self.steam_user, SteamUser):
             steam_user = self.steam_user.to_dict()
+        else:
+            steam_user = self.steam_user
 
         created_at: Union[Unset, str] = UNSET
         if not isinstance(self.created_at, Unset):
@@ -83,12 +89,22 @@ class PatchedPlayer:
         else:
             discord_user = DiscordUser.from_dict(_discord_user)
 
-        _steam_user = d.pop("steam_user", UNSET)
-        steam_user: Union[Unset, SteamUser]
-        if isinstance(_steam_user, Unset):
-            steam_user = UNSET
-        else:
-            steam_user = SteamUser.from_dict(_steam_user)
+        def _parse_steam_user(data: object) -> Union["SteamUser", None, Unset]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                steam_user_type_1 = SteamUser.from_dict(data)
+
+                return steam_user_type_1
+            except:  # noqa: E722
+                pass
+            return cast(Union["SteamUser", None, Unset], data)
+
+        steam_user = _parse_steam_user(d.pop("steam_user", UNSET))
 
         _created_at = d.pop("created_at", UNSET)
         created_at: Union[Unset, datetime.datetime]
