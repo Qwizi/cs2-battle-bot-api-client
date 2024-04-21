@@ -1,7 +1,7 @@
 """Contains all the data models used in inputs/outputs"""
 
+from .account_connect_link import AccountConnectLink
 from .create_guild import CreateGuild
-from .create_guild_member import CreateGuildMember
 from .create_match import CreateMatch
 from .create_match_cvars import CreateMatchCvars
 from .discord_user import DiscordUser
@@ -49,10 +49,11 @@ from .steam_user import SteamUser
 from .team import Team
 from .type_enum import TypeEnum
 from .update_guild import UpdateGuild
+from .user import User
 
 __all__ = (
+    "AccountConnectLink",
     "CreateGuild",
-    "CreateGuildMember",
     "CreateMatch",
     "CreateMatchCvars",
     "DiscordUser",
@@ -100,4 +101,5 @@ __all__ = (
     "Team",
     "TypeEnum",
     "UpdateGuild",
+    "User",
 )

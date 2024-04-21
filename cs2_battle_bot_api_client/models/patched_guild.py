@@ -1,11 +1,15 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.user import User
+
 
 T = TypeVar("T", bound="PatchedGuild")
 
@@ -15,6 +19,7 @@ class PatchedGuild:
     """
     Attributes:
         id (Union[Unset, str]):
+        owner (Union[Unset, User]):
         name (Union[Unset, str]):
         guild_id (Union[Unset, str]):
         lobby_channel (Union[None, Unset, str]):
@@ -22,11 +27,10 @@ class PatchedGuild:
         team2_channel (Union[None, Unset, str]):
         created_at (Union[Unset, datetime.datetime]):
         updated_at (Union[Unset, datetime.datetime]):
-        owner (Union[Unset, str]):
-        members (Union[Unset, List[str]]):
     """
 
     id: Union[Unset, str] = UNSET
+    owner: Union[Unset, "User"] = UNSET
     name: Union[Unset, str] = UNSET
     guild_id: Union[Unset, str] = UNSET
     lobby_channel: Union[None, Unset, str] = UNSET
@@ -34,12 +38,14 @@ class PatchedGuild:
     team2_channel: Union[None, Unset, str] = UNSET
     created_at: Union[Unset, datetime.datetime] = UNSET
     updated_at: Union[Unset, datetime.datetime] = UNSET
-    owner: Union[Unset, str] = UNSET
-    members: Union[Unset, List[str]] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         id = self.id
+
+        owner: Union[Unset, Dict[str, Any]] = UNSET
+        if not isinstance(self.owner, Unset):
+            owner = self.owner.to_dict()
 
         name = self.name
 
@@ -71,17 +77,13 @@ class PatchedGuild:
         if not isinstance(self.updated_at, Unset):
             updated_at = self.updated_at.isoformat()
 
-        owner = self.owner
-
-        members: Union[Unset, List[str]] = UNSET
-        if not isinstance(self.members, Unset):
-            members = self.members
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if id is not UNSET:
             field_dict["id"] = id
+        if owner is not UNSET:
+            field_dict["owner"] = owner
         if name is not UNSET:
             field_dict["name"] = name
         if guild_id is not UNSET:
@@ -96,17 +98,22 @@ class PatchedGuild:
             field_dict["created_at"] = created_at
         if updated_at is not UNSET:
             field_dict["updated_at"] = updated_at
-        if owner is not UNSET:
-            field_dict["owner"] = owner
-        if members is not UNSET:
-            field_dict["members"] = members
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+        from ..models.user import User
+
         d = src_dict.copy()
         id = d.pop("id", UNSET)
+
+        _owner = d.pop("owner", UNSET)
+        owner: Union[Unset, User]
+        if isinstance(_owner, Unset):
+            owner = UNSET
+        else:
+            owner = User.from_dict(_owner)
 
         name = d.pop("name", UNSET)
 
@@ -153,12 +160,9 @@ class PatchedGuild:
         else:
             updated_at = isoparse(_updated_at)
 
-        owner = d.pop("owner", UNSET)
-
-        members = cast(List[str], d.pop("members", UNSET))
-
         patched_guild = cls(
             id=id,
+            owner=owner,
             name=name,
             guild_id=guild_id,
             lobby_channel=lobby_channel,
@@ -166,8 +170,6 @@ class PatchedGuild:
             team2_channel=team2_channel,
             created_at=created_at,
             updated_at=updated_at,
-            owner=owner,
-            members=members,
         )
 
         patched_guild.additional_properties = d

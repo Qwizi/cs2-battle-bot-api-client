@@ -35,11 +35,13 @@ class PatchedMatch:
         last_map_ban (Union['MapBan', None, Unset]):
         map_picks (Union[Unset, List['MatchMapSelected']]):
         last_map_pick (Union['MatchMapSelected', None, Unset]):
-        connect_command (Union[Unset, str]):
-        load_match_command (Union[Unset, str]):
         author (Union[Unset, DiscordUser]):
         server (Union['Server', None, Unset]):
         guild (Union[Unset, Guild]):
+        config_url (Union[Unset, str]):
+        webhook_url (Union[Unset, str]):
+        connect_command (Union[Unset, str]):
+        load_match_command (Union[Unset, str]):
         status (Union[Unset, StatusEnum]): * `CREATED` - Created
             * `STARTED` - Started
             * `LIVE` - Live
@@ -67,11 +69,13 @@ class PatchedMatch:
     last_map_ban: Union["MapBan", None, Unset] = UNSET
     map_picks: Union[Unset, List["MatchMapSelected"]] = UNSET
     last_map_pick: Union["MatchMapSelected", None, Unset] = UNSET
-    connect_command: Union[Unset, str] = UNSET
-    load_match_command: Union[Unset, str] = UNSET
     author: Union[Unset, "DiscordUser"] = UNSET
     server: Union["Server", None, Unset] = UNSET
     guild: Union[Unset, "Guild"] = UNSET
+    config_url: Union[Unset, str] = UNSET
+    webhook_url: Union[Unset, str] = UNSET
+    connect_command: Union[Unset, str] = UNSET
+    load_match_command: Union[Unset, str] = UNSET
     status: Union[Unset, StatusEnum] = UNSET
     type: Union[Unset, TypeEnum] = UNSET
     num_maps: Union[Unset, int] = UNSET
@@ -146,10 +150,6 @@ class PatchedMatch:
         else:
             last_map_pick = self.last_map_pick
 
-        connect_command = self.connect_command
-
-        load_match_command = self.load_match_command
-
         author: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.author, Unset):
             author = self.author.to_dict()
@@ -165,6 +165,14 @@ class PatchedMatch:
         guild: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.guild, Unset):
             guild = self.guild.to_dict()
+
+        config_url = self.config_url
+
+        webhook_url = self.webhook_url
+
+        connect_command = self.connect_command
+
+        load_match_command = self.load_match_command
 
         status: Union[Unset, str] = UNSET
         if not isinstance(self.status, Unset):
@@ -221,16 +229,20 @@ class PatchedMatch:
             field_dict["map_picks"] = map_picks
         if last_map_pick is not UNSET:
             field_dict["last_map_pick"] = last_map_pick
-        if connect_command is not UNSET:
-            field_dict["connect_command"] = connect_command
-        if load_match_command is not UNSET:
-            field_dict["load_match_command"] = load_match_command
         if author is not UNSET:
             field_dict["author"] = author
         if server is not UNSET:
             field_dict["server"] = server
         if guild is not UNSET:
             field_dict["guild"] = guild
+        if config_url is not UNSET:
+            field_dict["config_url"] = config_url
+        if webhook_url is not UNSET:
+            field_dict["webhook_url"] = webhook_url
+        if connect_command is not UNSET:
+            field_dict["connect_command"] = connect_command
+        if load_match_command is not UNSET:
+            field_dict["load_match_command"] = load_match_command
         if status is not UNSET:
             field_dict["status"] = status
         if type is not UNSET:
@@ -355,10 +367,6 @@ class PatchedMatch:
 
         last_map_pick = _parse_last_map_pick(d.pop("last_map_pick", UNSET))
 
-        connect_command = d.pop("connect_command", UNSET)
-
-        load_match_command = d.pop("load_match_command", UNSET)
-
         _author = d.pop("author", UNSET)
         author: Union[Unset, DiscordUser]
         if isinstance(_author, Unset):
@@ -389,6 +397,14 @@ class PatchedMatch:
             guild = UNSET
         else:
             guild = Guild.from_dict(_guild)
+
+        config_url = d.pop("config_url", UNSET)
+
+        webhook_url = d.pop("webhook_url", UNSET)
+
+        connect_command = d.pop("connect_command", UNSET)
+
+        load_match_command = d.pop("load_match_command", UNSET)
 
         _status = d.pop("status", UNSET)
         status: Union[Unset, StatusEnum]
@@ -449,11 +465,13 @@ class PatchedMatch:
             last_map_ban=last_map_ban,
             map_picks=map_picks,
             last_map_pick=last_map_pick,
-            connect_command=connect_command,
-            load_match_command=load_match_command,
             author=author,
             server=server,
             guild=guild,
+            config_url=config_url,
+            webhook_url=webhook_url,
+            connect_command=connect_command,
+            load_match_command=load_match_command,
             status=status,
             type=type,
             num_maps=num_maps,

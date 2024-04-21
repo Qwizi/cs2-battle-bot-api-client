@@ -5,35 +5,24 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.create_guild_member import CreateGuildMember
-from ...models.guild import Guild
+from ...models.account_connect_link import AccountConnectLink
 from ...types import Response
 
 
-def _get_kwargs(
-    guild_id: str,
-    *,
-    body: CreateGuildMember,
-) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
-
+def _get_kwargs() -> Dict[str, Any]:
     _kwargs: Dict[str, Any] = {
-        "method": "post",
-        "url": f"/api/guilds/{guild_id}/add_member/",
+        "method": "get",
+        "url": "/api/account-connect-link",
     }
 
-    _body = body.to_dict()
-
-    _kwargs["json"] = _body
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Guild]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[AccountConnectLink]:
     if response.status_code == HTTPStatus.OK:
-        response_200 = Guild.from_dict(response.json())
+        response_200 = AccountConnectLink.from_dict(response.json())
 
         return response_200
     if client.raise_on_unexpected_status:
@@ -42,7 +31,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Guild]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[AccountConnectLink]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -52,28 +43,19 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 
 
 def sync_detailed(
-    guild_id: str,
     *,
     client: AuthenticatedClient,
-    body: CreateGuildMember,
-) -> Response[Guild]:
+) -> Response[AccountConnectLink]:
     """
-    Args:
-        guild_id (str):
-        body (CreateGuildMember):
-
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Guild]
+        Response[AccountConnectLink]
     """
 
-    kwargs = _get_kwargs(
-        guild_id=guild_id,
-        body=body,
-    )
+    kwargs = _get_kwargs()
 
     response = client.get_httpx_client().request(
         **kwargs,
@@ -83,54 +65,37 @@ def sync_detailed(
 
 
 def sync(
-    guild_id: str,
     *,
     client: AuthenticatedClient,
-    body: CreateGuildMember,
-) -> Optional[Guild]:
+) -> Optional[AccountConnectLink]:
     """
-    Args:
-        guild_id (str):
-        body (CreateGuildMember):
-
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Guild
+        AccountConnectLink
     """
 
     return sync_detailed(
-        guild_id=guild_id,
         client=client,
-        body=body,
     ).parsed
 
 
 async def asyncio_detailed(
-    guild_id: str,
     *,
     client: AuthenticatedClient,
-    body: CreateGuildMember,
-) -> Response[Guild]:
+) -> Response[AccountConnectLink]:
     """
-    Args:
-        guild_id (str):
-        body (CreateGuildMember):
-
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Guild]
+        Response[AccountConnectLink]
     """
 
-    kwargs = _get_kwargs(
-        guild_id=guild_id,
-        body=body,
-    )
+    kwargs = _get_kwargs()
 
     response = await client.get_async_httpx_client().request(**kwargs)
 
@@ -138,28 +103,20 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    guild_id: str,
     *,
     client: AuthenticatedClient,
-    body: CreateGuildMember,
-) -> Optional[Guild]:
+) -> Optional[AccountConnectLink]:
     """
-    Args:
-        guild_id (str):
-        body (CreateGuildMember):
-
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Guild
+        AccountConnectLink
     """
 
     return (
         await asyncio_detailed(
-            guild_id=guild_id,
             client=client,
-            body=body,
         )
     ).parsed

@@ -20,6 +20,7 @@ class PatchedServer:
         is_public (Union[Unset, bool]):
         rcon_password (Union[Unset, str]):
         guild (Union[None, Unset, str]):
+        join_url (Union[Unset, str]):
     """
 
     id: Union[Unset, str] = UNSET
@@ -30,6 +31,7 @@ class PatchedServer:
     is_public: Union[Unset, bool] = UNSET
     rcon_password: Union[Unset, str] = UNSET
     guild: Union[None, Unset, str] = UNSET
+    join_url: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -57,6 +59,8 @@ class PatchedServer:
         else:
             guild = self.guild
 
+        join_url = self.join_url
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -76,6 +80,8 @@ class PatchedServer:
             field_dict["rcon_password"] = rcon_password
         if guild is not UNSET:
             field_dict["guild"] = guild
+        if join_url is not UNSET:
+            field_dict["join_url"] = join_url
 
         return field_dict
 
@@ -112,6 +118,8 @@ class PatchedServer:
 
         guild = _parse_guild(d.pop("guild", UNSET))
 
+        join_url = d.pop("join_url", UNSET)
+
         patched_server = cls(
             id=id,
             name=name,
@@ -121,6 +129,7 @@ class PatchedServer:
             is_public=is_public,
             rcon_password=rcon_password,
             guild=guild,
+            join_url=join_url,
         )
 
         patched_server.additional_properties = d

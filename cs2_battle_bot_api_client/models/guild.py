@@ -1,11 +1,15 @@
 import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.user import User
+
 
 T = TypeVar("T", bound="Guild")
 
@@ -15,24 +19,22 @@ class Guild:
     """
     Attributes:
         id (str):
+        owner (User):
         name (str):
         guild_id (str):
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
-        owner (str):
-        members (List[str]):
         lobby_channel (Union[None, Unset, str]):
         team1_channel (Union[None, Unset, str]):
         team2_channel (Union[None, Unset, str]):
     """
 
     id: str
+    owner: "User"
     name: str
     guild_id: str
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    owner: str
-    members: List[str]
     lobby_channel: Union[None, Unset, str] = UNSET
     team1_channel: Union[None, Unset, str] = UNSET
     team2_channel: Union[None, Unset, str] = UNSET
@@ -41,6 +43,8 @@ class Guild:
     def to_dict(self) -> Dict[str, Any]:
         id = self.id
 
+        owner = self.owner.to_dict()
+
         name = self.name
 
         guild_id = self.guild_id
@@ -48,10 +52,6 @@ class Guild:
         created_at = self.created_at.isoformat()
 
         updated_at = self.updated_at.isoformat()
-
-        owner = self.owner
-
-        members = self.members
 
         lobby_channel: Union[None, Unset, str]
         if isinstance(self.lobby_channel, Unset):
@@ -76,12 +76,11 @@ class Guild:
         field_dict.update(
             {
                 "id": id,
+                "owner": owner,
                 "name": name,
                 "guild_id": guild_id,
                 "created_at": created_at,
                 "updated_at": updated_at,
-                "owner": owner,
-                "members": members,
             }
         )
         if lobby_channel is not UNSET:
@@ -95,8 +94,12 @@ class Guild:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+        from ..models.user import User
+
         d = src_dict.copy()
         id = d.pop("id")
+
+        owner = User.from_dict(d.pop("owner"))
 
         name = d.pop("name")
 
@@ -105,10 +108,6 @@ class Guild:
         created_at = isoparse(d.pop("created_at"))
 
         updated_at = isoparse(d.pop("updated_at"))
-
-        owner = d.pop("owner")
-
-        members = cast(List[str], d.pop("members"))
 
         def _parse_lobby_channel(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -139,12 +138,11 @@ class Guild:
 
         guild = cls(
             id=id,
+            owner=owner,
             name=name,
             guild_id=guild_id,
             created_at=created_at,
             updated_at=updated_at,
-            owner=owner,
-            members=members,
             lobby_channel=lobby_channel,
             team1_channel=team1_channel,
             team2_channel=team2_channel,

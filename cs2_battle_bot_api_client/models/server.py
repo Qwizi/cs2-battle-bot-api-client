@@ -16,6 +16,7 @@ class Server:
         name (str):
         ip (str):
         port (int):
+        join_url (str):
         password (Union[None, Unset, str]):
         is_public (Union[Unset, bool]):
         rcon_password (Union[Unset, str]):
@@ -26,6 +27,7 @@ class Server:
     name: str
     ip: str
     port: int
+    join_url: str
     password: Union[None, Unset, str] = UNSET
     is_public: Union[Unset, bool] = UNSET
     rcon_password: Union[Unset, str] = UNSET
@@ -40,6 +42,8 @@ class Server:
         ip = self.ip
 
         port = self.port
+
+        join_url = self.join_url
 
         password: Union[None, Unset, str]
         if isinstance(self.password, Unset):
@@ -65,6 +69,7 @@ class Server:
                 "name": name,
                 "ip": ip,
                 "port": port,
+                "join_url": join_url,
             }
         )
         if password is not UNSET:
@@ -88,6 +93,8 @@ class Server:
         ip = d.pop("ip")
 
         port = d.pop("port")
+
+        join_url = d.pop("join_url")
 
         def _parse_password(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -116,6 +123,7 @@ class Server:
             name=name,
             ip=ip,
             port=port,
+            join_url=join_url,
             password=password,
             is_public=is_public,
             rcon_password=rcon_password,

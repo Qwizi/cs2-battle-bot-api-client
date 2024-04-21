@@ -1,44 +1,43 @@
-from typing import Any, Dict, List, Type, TypeVar
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-T = TypeVar("T", bound="CreateGuild")
+if TYPE_CHECKING:
+    from ..models.player import Player
+
+
+T = TypeVar("T", bound="User")
 
 
 @_attrs_define
-class CreateGuild:
+class User:
     """
     Attributes:
-        name (str):
-        guild_id (str):
-        owner_id (str):
-        owner_username (str):
+        id (str):
+        username (str): Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+        player (Player):
     """
 
-    name: str
-    guild_id: str
-    owner_id: str
-    owner_username: str
+    id: str
+    username: str
+    player: "Player"
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        name = self.name
+        id = self.id
 
-        guild_id = self.guild_id
+        username = self.username
 
-        owner_id = self.owner_id
-
-        owner_username = self.owner_username
+        player = self.player.to_dict()
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "name": name,
-                "guild_id": guild_id,
-                "owner_id": owner_id,
-                "owner_username": owner_username,
+                "id": id,
+                "username": username,
+                "player": player,
             }
         )
 
@@ -46,24 +45,23 @@ class CreateGuild:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+        from ..models.player import Player
+
         d = src_dict.copy()
-        name = d.pop("name")
+        id = d.pop("id")
 
-        guild_id = d.pop("guild_id")
+        username = d.pop("username")
 
-        owner_id = d.pop("owner_id")
+        player = Player.from_dict(d.pop("player"))
 
-        owner_username = d.pop("owner_username")
-
-        create_guild = cls(
-            name=name,
-            guild_id=guild_id,
-            owner_id=owner_id,
-            owner_username=owner_username,
+        user = cls(
+            id=id,
+            username=username,
+            player=player,
         )
 
-        create_guild.additional_properties = d
-        return create_guild
+        user.additional_properties = d
+        return user
 
     @property
     def additional_keys(self) -> List[str]:

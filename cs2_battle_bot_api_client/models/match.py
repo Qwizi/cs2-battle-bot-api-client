@@ -35,11 +35,13 @@ class Match:
         last_map_ban (Union['MapBan', None]):
         map_picks (List['MatchMapSelected']):
         last_map_pick (Union['MatchMapSelected', None]):
-        connect_command (str):
-        load_match_command (str):
         author (DiscordUser):
         server (Union['Server', None]):
         guild (Guild):
+        config_url (str):
+        webhook_url (str):
+        connect_command (str):
+        load_match_command (str):
         created_at (datetime.datetime):
         updated_at (datetime.datetime):
         status (Union[Unset, StatusEnum]): * `CREATED` - Created
@@ -67,11 +69,13 @@ class Match:
     last_map_ban: Union["MapBan", None]
     map_picks: List["MatchMapSelected"]
     last_map_pick: Union["MatchMapSelected", None]
-    connect_command: str
-    load_match_command: str
     author: "DiscordUser"
     server: Union["Server", None]
     guild: "Guild"
+    config_url: str
+    webhook_url: str
+    connect_command: str
+    load_match_command: str
     created_at: datetime.datetime
     updated_at: datetime.datetime
     status: Union[Unset, StatusEnum] = UNSET
@@ -130,10 +134,6 @@ class Match:
         else:
             last_map_pick = self.last_map_pick
 
-        connect_command = self.connect_command
-
-        load_match_command = self.load_match_command
-
         author = self.author.to_dict()
 
         server: Union[Dict[str, Any], None]
@@ -143,6 +143,14 @@ class Match:
             server = self.server
 
         guild = self.guild.to_dict()
+
+        config_url = self.config_url
+
+        webhook_url = self.webhook_url
+
+        connect_command = self.connect_command
+
+        load_match_command = self.load_match_command
 
         created_at = self.created_at.isoformat()
 
@@ -187,11 +195,13 @@ class Match:
                 "last_map_ban": last_map_ban,
                 "map_picks": map_picks,
                 "last_map_pick": last_map_pick,
-                "connect_command": connect_command,
-                "load_match_command": load_match_command,
                 "author": author,
                 "server": server,
                 "guild": guild,
+                "config_url": config_url,
+                "webhook_url": webhook_url,
+                "connect_command": connect_command,
+                "load_match_command": load_match_command,
                 "created_at": created_at,
                 "updated_at": updated_at,
             }
@@ -300,10 +310,6 @@ class Match:
 
         last_map_pick = _parse_last_map_pick(d.pop("last_map_pick"))
 
-        connect_command = d.pop("connect_command")
-
-        load_match_command = d.pop("load_match_command")
-
         author = DiscordUser.from_dict(d.pop("author"))
 
         def _parse_server(data: object) -> Union["Server", None]:
@@ -322,6 +328,14 @@ class Match:
         server = _parse_server(d.pop("server"))
 
         guild = Guild.from_dict(d.pop("guild"))
+
+        config_url = d.pop("config_url")
+
+        webhook_url = d.pop("webhook_url")
+
+        connect_command = d.pop("connect_command")
+
+        load_match_command = d.pop("load_match_command")
 
         created_at = isoparse(d.pop("created_at"))
 
@@ -372,11 +386,13 @@ class Match:
             last_map_ban=last_map_ban,
             map_picks=map_picks,
             last_map_pick=last_map_pick,
-            connect_command=connect_command,
-            load_match_command=load_match_command,
             author=author,
             server=server,
             guild=guild,
+            config_url=config_url,
+            webhook_url=webhook_url,
+            connect_command=connect_command,
+            load_match_command=load_match_command,
             created_at=created_at,
             updated_at=updated_at,
             status=status,

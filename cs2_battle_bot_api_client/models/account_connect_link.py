@@ -3,32 +3,27 @@ from typing import Any, Dict, List, Type, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-T = TypeVar("T", bound="CreateGuildMember")
+T = TypeVar("T", bound="AccountConnectLink")
 
 
 @_attrs_define
-class CreateGuildMember:
+class AccountConnectLink:
     """
     Attributes:
-        user_id (str):
-        username (str):
+        link (str):
     """
 
-    user_id: str
-    username: str
+    link: str
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        user_id = self.user_id
-
-        username = self.username
+        link = self.link
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "user_id": user_id,
-                "username": username,
+                "link": link,
             }
         )
 
@@ -37,17 +32,14 @@ class CreateGuildMember:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        user_id = d.pop("user_id")
+        link = d.pop("link")
 
-        username = d.pop("username")
-
-        create_guild_member = cls(
-            user_id=user_id,
-            username=username,
+        account_connect_link = cls(
+            link=link,
         )
 
-        create_guild_member.additional_properties = d
-        return create_guild_member
+        account_connect_link.additional_properties = d
+        return account_connect_link
 
     @property
     def additional_keys(self) -> List[str]:
