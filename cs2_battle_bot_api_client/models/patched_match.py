@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     from ..models.map_ import Map
     from ..models.map_ban import MapBan
     from ..models.match_map_selected import MatchMapSelected
+    from ..models.patched_match_config import PatchedMatchConfig
     from ..models.server import Server
     from ..models.team import Team
 
@@ -39,6 +40,7 @@ class PatchedMatch:
         server (Union['Server', None, Unset]):
         guild (Union[Unset, Guild]):
         config_url (Union[Unset, str]):
+        config (Union[Unset, PatchedMatchConfig]):
         webhook_url (Union[Unset, str]):
         connect_command (Union[Unset, str]):
         load_match_command (Union[Unset, str]):
@@ -73,6 +75,7 @@ class PatchedMatch:
     server: Union["Server", None, Unset] = UNSET
     guild: Union[Unset, "Guild"] = UNSET
     config_url: Union[Unset, str] = UNSET
+    config: Union[Unset, "PatchedMatchConfig"] = UNSET
     webhook_url: Union[Unset, str] = UNSET
     connect_command: Union[Unset, str] = UNSET
     load_match_command: Union[Unset, str] = UNSET
@@ -168,6 +171,10 @@ class PatchedMatch:
 
         config_url = self.config_url
 
+        config: Union[Unset, Dict[str, Any]] = UNSET
+        if not isinstance(self.config, Unset):
+            config = self.config.to_dict()
+
         webhook_url = self.webhook_url
 
         connect_command = self.connect_command
@@ -237,6 +244,8 @@ class PatchedMatch:
             field_dict["guild"] = guild
         if config_url is not UNSET:
             field_dict["config_url"] = config_url
+        if config is not UNSET:
+            field_dict["config"] = config
         if webhook_url is not UNSET:
             field_dict["webhook_url"] = webhook_url
         if connect_command is not UNSET:
@@ -275,6 +284,7 @@ class PatchedMatch:
         from ..models.map_ import Map
         from ..models.map_ban import MapBan
         from ..models.match_map_selected import MatchMapSelected
+        from ..models.patched_match_config import PatchedMatchConfig
         from ..models.server import Server
         from ..models.team import Team
 
@@ -400,6 +410,13 @@ class PatchedMatch:
 
         config_url = d.pop("config_url", UNSET)
 
+        _config = d.pop("config", UNSET)
+        config: Union[Unset, PatchedMatchConfig]
+        if isinstance(_config, Unset):
+            config = UNSET
+        else:
+            config = PatchedMatchConfig.from_dict(_config)
+
         webhook_url = d.pop("webhook_url", UNSET)
 
         connect_command = d.pop("connect_command", UNSET)
@@ -469,6 +486,7 @@ class PatchedMatch:
             server=server,
             guild=guild,
             config_url=config_url,
+            config=config,
             webhook_url=webhook_url,
             connect_command=connect_command,
             load_match_command=load_match_command,

@@ -6,7 +6,6 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.create_match import CreateMatch
-from ...models.match import Match
 from ...types import Response
 
 
@@ -30,18 +29,14 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Match]:
-    if response.status_code == HTTPStatus.CREATED:
-        response_201 = Match.from_dict(response.json())
-
-        return response_201
+def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Any]:
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Match]:
+def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Any]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -54,7 +49,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: CreateMatch,
-) -> Response[Match]:
+) -> Response[Any]:
     """
     Args:
         body (CreateMatch):
@@ -64,7 +59,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Match]
+        Response[Any]
     """
 
     kwargs = _get_kwargs(
@@ -78,34 +73,11 @@ def sync_detailed(
     return _build_response(client=client, response=response)
 
 
-def sync(
-    *,
-    client: AuthenticatedClient,
-    body: CreateMatch,
-) -> Optional[Match]:
-    """
-    Args:
-        body (CreateMatch):
-
-    Raises:
-        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
-        httpx.TimeoutException: If the request takes longer than Client.timeout.
-
-    Returns:
-        Match
-    """
-
-    return sync_detailed(
-        client=client,
-        body=body,
-    ).parsed
-
-
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: CreateMatch,
-) -> Response[Match]:
+) -> Response[Any]:
     """
     Args:
         body (CreateMatch):
@@ -115,7 +87,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Match]
+        Response[Any]
     """
 
     kwargs = _get_kwargs(
@@ -125,28 +97,3 @@ async def asyncio_detailed(
     response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
-
-
-async def asyncio(
-    *,
-    client: AuthenticatedClient,
-    body: CreateMatch,
-) -> Optional[Match]:
-    """
-    Args:
-        body (CreateMatch):
-
-    Raises:
-        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
-        httpx.TimeoutException: If the request takes longer than Client.timeout.
-
-    Returns:
-        Match
-    """
-
-    return (
-        await asyncio_detailed(
-            client=client,
-            body=body,
-        )
-    ).parsed

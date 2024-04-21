@@ -11,15 +11,12 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    guild: Union[Unset, str] = UNSET,
-    is_public: Union[Unset, bool] = UNSET,
+    guild_or_public: Union[Unset, str] = UNSET,
     page: Union[Unset, int] = UNSET,
 ) -> Dict[str, Any]:
     params: Dict[str, Any] = {}
 
-    params["guild"] = guild
-
-    params["is_public"] = is_public
+    params["guild_or_public"] = guild_or_public
 
     params["page"] = page
 
@@ -61,14 +58,12 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    guild: Union[Unset, str] = UNSET,
-    is_public: Union[Unset, bool] = UNSET,
+    guild_or_public: Union[Unset, str] = UNSET,
     page: Union[Unset, int] = UNSET,
 ) -> Response[PaginatedServerList]:
     """
     Args:
-        guild (Union[Unset, str]):
-        is_public (Union[Unset, bool]):
+        guild_or_public (Union[Unset, str]):
         page (Union[Unset, int]):
 
     Raises:
@@ -80,8 +75,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        guild=guild,
-        is_public=is_public,
+        guild_or_public=guild_or_public,
         page=page,
     )
 
@@ -95,14 +89,12 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    guild: Union[Unset, str] = UNSET,
-    is_public: Union[Unset, bool] = UNSET,
+    guild_or_public: Union[Unset, str] = UNSET,
     page: Union[Unset, int] = UNSET,
 ) -> Optional[PaginatedServerList]:
     """
     Args:
-        guild (Union[Unset, str]):
-        is_public (Union[Unset, bool]):
+        guild_or_public (Union[Unset, str]):
         page (Union[Unset, int]):
 
     Raises:
@@ -115,8 +107,7 @@ def sync(
 
     return sync_detailed(
         client=client,
-        guild=guild,
-        is_public=is_public,
+        guild_or_public=guild_or_public,
         page=page,
     ).parsed
 
@@ -124,14 +115,12 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    guild: Union[Unset, str] = UNSET,
-    is_public: Union[Unset, bool] = UNSET,
+    guild_or_public: Union[Unset, str] = UNSET,
     page: Union[Unset, int] = UNSET,
 ) -> Response[PaginatedServerList]:
     """
     Args:
-        guild (Union[Unset, str]):
-        is_public (Union[Unset, bool]):
+        guild_or_public (Union[Unset, str]):
         page (Union[Unset, int]):
 
     Raises:
@@ -143,8 +132,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        guild=guild,
-        is_public=is_public,
+        guild_or_public=guild_or_public,
         page=page,
     )
 
@@ -156,14 +144,12 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    guild: Union[Unset, str] = UNSET,
-    is_public: Union[Unset, bool] = UNSET,
+    guild_or_public: Union[Unset, str] = UNSET,
     page: Union[Unset, int] = UNSET,
 ) -> Optional[PaginatedServerList]:
     """
     Args:
-        guild (Union[Unset, str]):
-        is_public (Union[Unset, bool]):
+        guild_or_public (Union[Unset, str]):
         page (Union[Unset, int]):
 
     Raises:
@@ -177,8 +163,7 @@ async def asyncio(
     return (
         await asyncio_detailed(
             client=client,
-            guild=guild,
-            is_public=is_public,
+            guild_or_public=guild_or_public,
             page=page,
         )
     ).parsed

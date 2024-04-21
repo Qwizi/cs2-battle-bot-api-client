@@ -5,7 +5,6 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.paginated_match_list import PaginatedMatchList
 from ...types import UNSET, Response, Unset
 
 
@@ -28,22 +27,14 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[PaginatedMatchList]:
-    if response.status_code == HTTPStatus.OK:
-        response_200 = PaginatedMatchList.from_dict(response.json())
-
-        return response_200
+def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Any]:
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[PaginatedMatchList]:
+def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Any]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -56,7 +47,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     page: Union[Unset, int] = UNSET,
-) -> Response[PaginatedMatchList]:
+) -> Response[Any]:
     """
     Args:
         page (Union[Unset, int]):
@@ -66,7 +57,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[PaginatedMatchList]
+        Response[Any]
     """
 
     kwargs = _get_kwargs(
@@ -80,34 +71,11 @@ def sync_detailed(
     return _build_response(client=client, response=response)
 
 
-def sync(
-    *,
-    client: AuthenticatedClient,
-    page: Union[Unset, int] = UNSET,
-) -> Optional[PaginatedMatchList]:
-    """
-    Args:
-        page (Union[Unset, int]):
-
-    Raises:
-        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
-        httpx.TimeoutException: If the request takes longer than Client.timeout.
-
-    Returns:
-        PaginatedMatchList
-    """
-
-    return sync_detailed(
-        client=client,
-        page=page,
-    ).parsed
-
-
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     page: Union[Unset, int] = UNSET,
-) -> Response[PaginatedMatchList]:
+) -> Response[Any]:
     """
     Args:
         page (Union[Unset, int]):
@@ -117,7 +85,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[PaginatedMatchList]
+        Response[Any]
     """
 
     kwargs = _get_kwargs(
@@ -127,28 +95,3 @@ async def asyncio_detailed(
     response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
-
-
-async def asyncio(
-    *,
-    client: AuthenticatedClient,
-    page: Union[Unset, int] = UNSET,
-) -> Optional[PaginatedMatchList]:
-    """
-    Args:
-        page (Union[Unset, int]):
-
-    Raises:
-        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
-        httpx.TimeoutException: If the request takes longer than Client.timeout.
-
-    Returns:
-        PaginatedMatchList
-    """
-
-    return (
-        await asyncio_detailed(
-            client=client,
-            page=page,
-        )
-    ).parsed
