@@ -10,8 +10,10 @@ from .interaction_user import InteractionUser
 from .map_ import Map
 from .map_ban import MapBan
 from .map_sides_enum import MapSidesEnum
+from .match import Match
 from .match_ban_map import MatchBanMap
 from .match_ban_map_result import MatchBanMapResult
+from .match_config import MatchConfig
 from .match_config_cvars import MatchConfigCvars
 from .match_config_team_1 import MatchConfigTeam1
 from .match_config_team_2 import MatchConfigTeam2
@@ -25,6 +27,7 @@ from .paginated_discord_user_list import PaginatedDiscordUserList
 from .paginated_guild_list import PaginatedGuildList
 from .paginated_map_ban_list import PaginatedMapBanList
 from .paginated_map_list import PaginatedMapList
+from .paginated_match_list import PaginatedMatchList
 from .paginated_match_map_selected_list import PaginatedMatchMapSelectedList
 from .paginated_player_list import PaginatedPlayerList
 from .paginated_server_list import PaginatedServerList
@@ -34,7 +37,6 @@ from .patched_discord_user import PatchedDiscordUser
 from .patched_guild import PatchedGuild
 from .patched_map import PatchedMap
 from .patched_match import PatchedMatch
-from .patched_match_config import PatchedMatchConfig
 from .patched_player import PatchedPlayer
 from .patched_server import PatchedServer
 from .patched_steam_user import PatchedSteamUser
@@ -60,8 +62,10 @@ __all__ = (
     "Map",
     "MapBan",
     "MapSidesEnum",
+    "Match",
     "MatchBanMap",
     "MatchBanMapResult",
+    "MatchConfig",
     "MatchConfigCvars",
     "MatchConfigTeam1",
     "MatchConfigTeam2",
@@ -75,6 +79,7 @@ __all__ = (
     "PaginatedGuildList",
     "PaginatedMapBanList",
     "PaginatedMapList",
+    "PaginatedMatchList",
     "PaginatedMatchMapSelectedList",
     "PaginatedPlayerList",
     "PaginatedServerList",
@@ -84,7 +89,6 @@ __all__ = (
     "PatchedGuild",
     "PatchedMap",
     "PatchedMatch",
-    "PatchedMatchConfig",
     "PatchedPlayer",
     "PatchedServer",
     "PatchedSteamUser",

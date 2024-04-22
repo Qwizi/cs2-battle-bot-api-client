@@ -28,6 +28,7 @@ class CreateMatch:
         clinch_series (Union[Unset, bool]):  Default: False.
         map_sides (Union[Unset, List[MapSidesEnum]]):
         cvars (Union[Unset, CreateMatchCvars]):
+        maplist (Union[Unset, List[str]]):
     """
 
     discord_users_ids: List[str]
@@ -38,6 +39,7 @@ class CreateMatch:
     clinch_series: Union[Unset, bool] = False
     map_sides: Union[Unset, List[MapSidesEnum]] = UNSET
     cvars: Union[Unset, "CreateMatchCvars"] = UNSET
+    maplist: Union[Unset, List[str]] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -66,6 +68,10 @@ class CreateMatch:
         if not isinstance(self.cvars, Unset):
             cvars = self.cvars.to_dict()
 
+        maplist: Union[Unset, List[str]] = UNSET
+        if not isinstance(self.maplist, Unset):
+            maplist = self.maplist
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -85,6 +91,8 @@ class CreateMatch:
             field_dict["map_sides"] = map_sides
         if cvars is not UNSET:
             field_dict["cvars"] = cvars
+        if maplist is not UNSET:
+            field_dict["maplist"] = maplist
 
         return field_dict
 
@@ -124,6 +132,8 @@ class CreateMatch:
         else:
             cvars = CreateMatchCvars.from_dict(_cvars)
 
+        maplist = cast(List[str], d.pop("maplist", UNSET))
+
         create_match = cls(
             discord_users_ids=discord_users_ids,
             author_id=author_id,
@@ -133,6 +143,7 @@ class CreateMatch:
             clinch_series=clinch_series,
             map_sides=map_sides,
             cvars=cvars,
+            maplist=maplist,
         )
 
         create_match.additional_properties = d

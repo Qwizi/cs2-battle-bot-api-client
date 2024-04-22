@@ -5,7 +5,6 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.interaction_user import InteractionUser
 from ...models.match import Match
 from ...types import Response
 
@@ -13,13 +12,13 @@ from ...types import Response
 def _get_kwargs(
     id: int,
     *,
-    body: InteractionUser,
+    body: Match,
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
     _kwargs: Dict[str, Any] = {
         "method": "post",
-        "url": f"/api/matches/{id}/shuffle/",
+        "url": f"/api/matches/{id}/load/",
     }
 
     _body = body.to_dict()
@@ -55,12 +54,12 @@ def sync_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: InteractionUser,
+    body: Match,
 ) -> Response[Match]:
     """
     Args:
         id (int):
-        body (InteractionUser):
+        body (Match):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -86,12 +85,12 @@ def sync(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: InteractionUser,
+    body: Match,
 ) -> Optional[Match]:
     """
     Args:
         id (int):
-        body (InteractionUser):
+        body (Match):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -112,12 +111,12 @@ async def asyncio_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: InteractionUser,
+    body: Match,
 ) -> Response[Match]:
     """
     Args:
         id (int):
-        body (InteractionUser):
+        body (Match):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -141,12 +140,12 @@ async def asyncio(
     id: int,
     *,
     client: AuthenticatedClient,
-    body: InteractionUser,
+    body: Match,
 ) -> Optional[Match]:
     """
     Args:
         id (int):
-        body (InteractionUser):
+        body (Match):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

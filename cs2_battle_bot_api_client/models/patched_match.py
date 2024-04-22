@@ -14,8 +14,8 @@ if TYPE_CHECKING:
     from ..models.guild import Guild
     from ..models.map_ import Map
     from ..models.map_ban import MapBan
+    from ..models.match_config import MatchConfig
     from ..models.match_map_selected import MatchMapSelected
-    from ..models.patched_match_config import PatchedMatchConfig
     from ..models.server import Server
     from ..models.team import Team
 
@@ -40,7 +40,7 @@ class PatchedMatch:
         server (Union['Server', None, Unset]):
         guild (Union[Unset, Guild]):
         config_url (Union[Unset, str]):
-        config (Union[Unset, PatchedMatchConfig]):
+        config (Union[Unset, MatchConfig]):
         webhook_url (Union[Unset, str]):
         connect_command (Union[Unset, str]):
         load_match_command (Union[Unset, str]):
@@ -75,7 +75,7 @@ class PatchedMatch:
     server: Union["Server", None, Unset] = UNSET
     guild: Union[Unset, "Guild"] = UNSET
     config_url: Union[Unset, str] = UNSET
-    config: Union[Unset, "PatchedMatchConfig"] = UNSET
+    config: Union[Unset, "MatchConfig"] = UNSET
     webhook_url: Union[Unset, str] = UNSET
     connect_command: Union[Unset, str] = UNSET
     load_match_command: Union[Unset, str] = UNSET
@@ -283,8 +283,8 @@ class PatchedMatch:
         from ..models.guild import Guild
         from ..models.map_ import Map
         from ..models.map_ban import MapBan
+        from ..models.match_config import MatchConfig
         from ..models.match_map_selected import MatchMapSelected
-        from ..models.patched_match_config import PatchedMatchConfig
         from ..models.server import Server
         from ..models.team import Team
 
@@ -411,11 +411,11 @@ class PatchedMatch:
         config_url = d.pop("config_url", UNSET)
 
         _config = d.pop("config", UNSET)
-        config: Union[Unset, PatchedMatchConfig]
+        config: Union[Unset, MatchConfig]
         if isinstance(_config, Unset):
             config = UNSET
         else:
-            config = PatchedMatchConfig.from_dict(_config)
+            config = MatchConfig.from_dict(_config)
 
         webhook_url = d.pop("webhook_url", UNSET)
 
