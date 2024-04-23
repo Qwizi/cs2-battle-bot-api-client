@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cs2-battle-bot-api-client"
-version = "0.0.25"
+version = "0.0.26"
 description = "A client library for accessing cs2-battle-bot-api"
 authors = []
 readme = "README.md"
